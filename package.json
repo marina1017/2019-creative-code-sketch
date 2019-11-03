@@ -1,0 +1,14 @@
+{
+  "name": "2019-creative-code-sketch",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "01": "parcel src/01-typography/index.html --no-hmr --port 1234  --out-dir sketches/01-typography",
+    "d01": "rm -rf sketches/01-typography/*.js && parcel build src/01-typography/index.html --out-dir sketches/01-typography --public-url ./  --no-source-maps"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "typescript": "^3.6.4"
+  }
+}
