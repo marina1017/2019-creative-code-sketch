@@ -32,3 +32,20 @@ https://marina1017.github.io/2019-creative-code-sketch/src/03-particle/
 
 ### コード
 https://github.com/marina1017/2019-creative-code-sketch/tree/master/src/03-particle
+
+## わからなかったこと
+あいかわらず
+https://marina1017.github.io/2019-creative-code-sketch/sketches/03-particle/
+だとよみこめない。
+
+読み込んでいるindex.htmlでよみこんでいるファイル名は正しそうだが・・
+
+### エラーメッセージ
+
+```
+Uncaught ReferenceError: THREE is not defined
+    at Object.parcelRequire.js/OrbitControls.js (OrbitControls.86a60464.js:127)
+    at newRequire (OrbitControls.86a60464.js:47)
+    at OrbitControls.86a60464.js:81
+    at OrbitControls.86a60464.js:120
+```
