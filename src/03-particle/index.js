@@ -1,57 +1,88 @@
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
-  // シーン
+  // シーン---------------
   var scene = new THREE.Scene();
+  //---------------------
 
-  // レンダラー
+  // レンダラー---------------
   var renderer = new THREE.WebGLRenderer();
   renderer.setSize( window.innerWidth, window.innerHeight );
   document.body.appendChild( renderer.domElement );
+  //---------------------
 
-  // カメラ
+  // カメラ---------------
   var camera = new THREE.PerspectiveCamera( 15, window.innerWidth / window.innerHeight);
   camera.position.set(0, 0, 100);
   scene.add(camera);
+  //---------------------
 
-  // 星屑を作成します
+  //オブジェクト---------------
   // 形状データを作成
   const geometry = new THREE.Geometry();
   // 配置する範囲
   const SIZE = 3000;
   // 配置する個数
-  const LENGTH = 4000;
+  const LENGTH = 10000;
+
+  // geometryにランダムに点をいれていく
   for (let i = 0; i < LENGTH; i++) {
-    geometry.vertices.push(
-      new THREE.Vector3(
-        SIZE * (Math.random() - 0.5),
-        SIZE * (Math.random() - 0.5),
-        SIZE * (Math.random() - 0.5)
-      )
+    var particle = new THREE.Vector3(
+      SIZE * (Math.random() - 0.5),
+      SIZE * (Math.random() - 0.5),
+      SIZE * (Math.random() - 0.5)
     );
+    particle.velocity = new THREE.Vector3(
+      0,
+      Math.random(1,10),
+      Math.random(1,10)
+    );
+    geometry.vertices.push(particle);
   }
-  // マテリアルを作成
+  geometry.verticesNeedUpdate = true;
+  geometry.elementNeedUpdate = true;
+  //---------------------
+
+
+  // マテリアル---------------
   var material = new THREE.PointsMaterial({
     // 一つ一つのサイズ
     size: 10,
     // 色
-    color: 0xffffff
+    color: 0xffffff,
+    //ブレンド(加算)
+    blending: THREE.AdditiveBlending,
+    //透過するか
+    transparent: true,
+    clipIntersection: true
   });
-  // 物体を作成
-  const mesh = new THREE.Points(geometry, material);
+  //---------------------
+
+  // particle systemをつくる---------------
+  var mesh = new THREE.Points(
+    //第一引数は,geometry
+    geometry,
+    //第一引数は,マテリアル
+    material
+  );
+
   scene.add(mesh);
+  //---------------------
 
-  // マウス
+
+  // マウス---------------
   var controls = new THREE.OrbitControls(camera);
+  //---------------------
 
-  // ライト
+  // ライト---------------
   light = new THREE.DirectionalLight(0xcccccc,1);
   light.position = new THREE.Vector3(0, 10, 10);
   ambient = new THREE.AmbientLight(0x333333);
   scene.add(light);
   scene.add(ambient);
+  //---------------------
 
-  // GUIパラメータ
+  // GUIで変更できるようにする---------------
   var guiCtrl = function(){
     this.Camera_x = 0;
     this.Camera_y = 0;
@@ -71,7 +102,7 @@ function init() {
   folder.add( guiObj, 'Camera_y', 0, 100 ).onChange(setCameraPosition);
   folder.add( guiObj, 'Camera_z', 0, 100 ).onChange(setCameraPosition);
   folder.addColor( guiObj , 'color' ).onChange(setColor);
-  folder.add( guiObj, 'size', 10, 100).onChange(setSize);
+  folder.add( guiObj, 'size', 10, 1000).onChange(setSize);
   folder.add( guiObj, 'alert' );
   folder.open();
 
@@ -81,7 +112,6 @@ function init() {
 
   function setColor(){
     //マテリアル
-    console.log("guiObj", guiObj)
     var code = guiObj.color;
     var red   = parseInt(code.substring(1,3), 16);
     var green = parseInt(code.substring(3,5), 16);
@@ -89,20 +119,34 @@ function init() {
     mesh.material.color.r  = red / 255
     mesh.material.color.g  = green / 255
     mesh.material.color.b  = blue / 255
-    console.log("mesh.material.color",mesh.material.color)
   }
 
   function setSize(){
     mesh.material.size = guiObj.size;
-    console.log(mesh);
   }
+  //---------------------
   
-  // レンダリング
+  // レンダリング---------------------
   function render(){
     requestAnimationFrame(render);
+    //particle system自体をまわす
+    mesh.rotation.y += 0.001;
+
+    // meshに設定したgeometryの中に入っている点のy軸をランダムに動かすようにする
+    mesh.geometry.vertices.forEach(vertex => {
+      vertex.setY(vertex.y + vertex.velocity.y);
+    });
+    // geometryの「geometry.verticesNeedUpdate」はレンダリング後に毎回falseになるらしいのでtrueをここで設定している。
+    // https://stackoverflow.com/questions/24531109/three-js-vertices-does-not-update
+    mesh.geometry.verticesNeedUpdate = true;
+    
+    // マウスでカメラを操作するため
     controls.update();
+
+    //シーンとカメラをいれる。
     renderer.render(scene,camera);
   }
 
   render();
+  //---------------------
 }
