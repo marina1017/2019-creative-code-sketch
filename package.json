@@ -7,6 +7,7 @@
     "01": "parcel src/01-typography/index.html --no-hmr --port 1234  --out-dir sketches/01-typography",
     "02": "parcel src/02-color/index.html --no-hmr --port 1234  --out-dir sketches/02-color",
     "03": "parcel src/03-particle/index.html --no-hmr --port 1234  --out-dir sketches/03-particle",
+    "04": "parcel build src/03-particle/index.html --out-dir sketches/03-particle --public-url ./ --no-source-maps",
     "d01": "rm -rf sketches/01-typography/*.js && parcel build src/01-typography/index.html --out-dir sketches/01-typography --public-url ./  --no-source-maps"
   },
   "devDependencies": {
