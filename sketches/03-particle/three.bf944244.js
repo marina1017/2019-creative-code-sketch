@@ -29455,4 +29455,3 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   });
 });
 },{}]},{},["js/three.js"], null)
-//# sourceMappingURL=/three.bf944244.js.map
