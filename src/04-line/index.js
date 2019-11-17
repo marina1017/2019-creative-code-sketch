@@ -31,16 +31,21 @@ function init() {
 
   // geometryにランダムに点をいれていく
   for (let i = 0; i < LENGTH; i++) {
+    // var particle = new THREE.Vector3(
+    //   SIZE * (Math.random() - 0.5),
+    //   SIZE * (Math.random() - 0.5),
+    //   SIZE * (Math.random() - 0.5)
+    // );
     var particle = new THREE.Vector3(
-      SIZE * (Math.random() - 0.5),
-      SIZE * (Math.random() - 0.5),
-      SIZE * (Math.random() - 0.5)
-    );
-    particle.velocity = new THREE.Vector3(
       0,
-      Math.random(1,10),
-      Math.random(1,10)
+      0,
+      0
     );
+    // particle.velocity = new THREE.Vector3(
+    //   0,
+    //   Math.random(1,10),
+    //   Math.random(1,10)
+    // );
     geometry.vertices.push(particle);
   }
   geometry.verticesNeedUpdate = true;
@@ -51,7 +56,7 @@ function init() {
   // マテリアル---------------
   var material = new THREE.PointsMaterial({
     // 一つ一つのサイズ
-    size: 10,
+    size: 100,
     // 色
     color: 0xffffff,
     //ブレンド(加算)
@@ -134,12 +139,12 @@ function init() {
   function render(){
     requestAnimationFrame(render);
     //particle system自体をまわす
-    mesh.rotation.y += 0.001;
+    //mesh.rotation.y += 0.001;
 
     // meshに設定したgeometryの中に入っている点のy軸をランダムに動かすようにする
-    mesh.geometry.vertices.forEach(vertex => {
-      vertex.setY(vertex.y + vertex.velocity.y);
-    });
+    // mesh.geometry.vertices.forEach(vertex => {
+    //   vertex.setY(vertex.y + vertex.velocity.y);
+    // });
     // geometryの「geometry.verticesNeedUpdate」はレンダリング後に毎回falseになるらしいのでtrueをここで設定している。
     // https://stackoverflow.com/questions/24531109/three-js-vertices-does-not-update
     mesh.geometry.verticesNeedUpdate = true;
