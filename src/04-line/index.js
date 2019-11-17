@@ -1,14 +1,15 @@
 import * as THREE from 'three'
 import OrbitControls from 'three-orbitcontrols'
 import * as dat from 'dat.gui'
-// importにやたらめったらはまった 下記のPRがマージされるまではaddAttribute()を.setAttribute()に変更する必要がある
+// importにやたらめったらはまった 
+// 下記のPRがマージされるまではaddAttribute()を.setAttribute()に変更する必要がある
 // https://github.com/spite/THREE.MeshLine/pull/92/files
 import { MeshLine, MeshLineMaterial, } from 'three.meshline';
 import { Material } from 'three';
 
 window.addEventListener('DOMContentLoaded', init);
 //生成するラインの個数
-var NUM = 200;
+var NUM = 1000;
 
 function init() {
   // シーン---------------
@@ -29,6 +30,12 @@ function init() {
   scene.add(camera);
   //---------------------
 
+  //グループをつくる---------------
+  const group = new THREE.Group();
+  // 3D空間にグループを追加する
+  scene.add(group);
+  //---------------
+
   //オブジェクト---------------
     //geometryをいっぱい作る
     var geometries = [];
@@ -36,8 +43,8 @@ function init() {
       const segmentLength = 1;
       const nbrOfPoints = 15;
       const points = [];
-      //ランダム性？
-      const turbulence = Math.random(0.1,3.5);
+      //ランダム性
+      const turbulence = Math.random(0.1,5.5);
       for (let i = 0; i < nbrOfPoints; i++) {
         // THREE.Vector3にポイントをラップする必要があります
         points.push(new THREE.Vector3(
@@ -55,9 +62,6 @@ function init() {
       line.setGeometry(linePoints);
       geometries[i] = line.geometry;
     }
-    console.log("geometries",geometries[0])
-
-
   //---------------------
 
 
@@ -65,10 +69,10 @@ function init() {
   // 適切なパラメータを使用してマテリアルを構築し、アニメーション化します。
   const material = new MeshLineMaterial({
     transparent: true,
-    lineWidth: 0.4,
+    lineWidth: 0.3,
     color: new THREE.Color('#ff0000'),
     opacity: 0.5,
-    //常に行の2倍でなければなりません
+    //常に行の2倍でなければならない
     dashArray: 4,
     //ゼロからダッシュを開始
     dashOffset: 0, 
@@ -88,10 +92,10 @@ function init() {
     lineMesh.position.x = 0;
     lineMesh.rotation.x = i / 10*Math.PI*Math.random(0,1000);
     lineMesh.rotation.y = i / 10*Math.PI*Math.random(0,1000);
-    scene.add(lineMesh);
+    
+    // 全体をまわすためにグループに追加する(親子関係をつくる)
+    group.add(lineMesh);
   }
-
-  
   //---------------------
 
 
@@ -158,6 +162,7 @@ function init() {
   
   // レンダリング---------------------
   function render(){
+    group.rotation.y += 0.01;
     // マウスでカメラを操作するため
     controls.update();
 
