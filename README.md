@@ -51,9 +51,30 @@ Uncaught ReferenceError: THREE is not defined
 ```
 
 ## 第４回　線
+### ビルドの仕方
+開発環境の場合
+
+```
+yarn d04
+```
+
+`https://marina1017.github.io/2019-creative-code-sketch/sketches/04-line/`にまとめる場合
+
+```
+yarn 04
+```
 ### コンセプト
 線がシュッと消えていくやつをつくりたかった
 parcelとようやく仲良くなった(みなさまありがとう)
+
+### 使った技術
+parcel(ようやく理想的な姿に・・・・・)
+yarn(パッケージ管理がようやくいい感じに・・・・・)
+three.js
+orbitcontrols.js
+dat.gui.js
+three.meshline.js < NEW!
+
 
 ### 作品
 https://marina1017.github.io/2019-creative-code-sketch/sketches/04-line/
