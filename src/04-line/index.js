@@ -1,7 +1,13 @@
 import * as THREE from 'three'
 import OrbitControls from 'three-orbitcontrols'
-import MeshLine from 'three.meshline'
-import * as dat from 'dat.gui';
+import * as dat from 'dat.gui'
+// importにやたらめったらはまった
+// import * as Meshline from 'three.meshline'
+// だとだめなのかだれか教えてほしい・・・・
+// 参考 https://github.com/spite/THREE.MeshLine/issues/28
+import { MeshLine, MeshLineMaterial, } from 'meshline-andrewray'
+//import { MeshLine, MeshLineMaterial, } from 'three.meshline'
+;
 
 window.addEventListener('DOMContentLoaded', init);
 
@@ -25,40 +31,26 @@ function init() {
   //---------------------
 
   //オブジェクト---------------
-  // 形状データを作成
-  const geometry = new THREE.BoxGeometry(5, 5, 5);
-  // 配置する範囲
-  const SIZE = 3000;
-  // 配置する個数
-  const LENGTH = 10000;
-
-  // geometryにランダムに点をいれていく
-  for (let i = 0; i < LENGTH; i++) {
-    // var particle = new THREE.Vector3(
-    //   SIZE * (Math.random() - 0.5),
-    //   SIZE * (Math.random() - 0.5),
-    //   SIZE * (Math.random() - 0.5)
-    // );
-    var particle = new THREE.Vector3(
-      0,
-      0,
-      100
-    );
-    // particle.velocity = new THREE.Vector3(
-    //   0,
-    //   Math.random(1,10),
-    //   Math.random(1,10)
-    // );
-    geometry.vertices.push(particle);
+  // 
+  var geometry = new THREE.Geometry();
+  for( var j = 0; j < Math.PI; j += 2 * Math.PI / 100 ) {
+	  var v = new THREE.Vector3( Math.cos( j ), Math.sin( j ), 0 );
+	  geometry.vertices.push( v );
   }
-  geometry.verticesNeedUpdate = true;
-  geometry.elementNeedUpdate = true;
+  var line = new MeshLine();
+  line.setGeometry( geometry );
   //---------------------
 
 
   // マテリアル---------------
-  var material = new THREE.MeshStandardMaterial({
-    color: 0x0000ff
+  // Build the material with good parameters to animate it.
+  const material = new MeshLineMaterial({
+    transparent: true,
+    lineWidth: 0.1,
+    //color: new Color('#ff0000'),
+    dashArray: 2,     // always has to be the double of the line
+    dashOffset: 0,    // start the dash at zero
+    dashRatio: 0.75,  // visible length range min: 0.99, max: 0.5
   });
   //---------------------
 
@@ -71,14 +63,21 @@ function init() {
   // );
   
   //04の今回は「BoxGeometry」をつかっているのでメッシュをTHREE.Meshをつかっている
-  var mesh = new THREE.Mesh(
-    //第1引数は,ジオメトリ
-    geometry,
-    //第2引数は,マテリアル
-    material
-  );
+  // var mesh = new THREE.Mesh(
+  //   //第1引数は,ジオメトリ
+  //   geometry,
+  //   //第2引数は,マテリアル
+  //   material
+  // );
+   // Build the Mesh
+   const lineMesh = new THREE.Mesh(
+     //第1引数は,ジオメトリ
+     line.geometry, 
+     //第2引数は,マテリアル
+     material
+   );
 
-  scene.add(mesh);
+  scene.add(lineMesh);
   //---------------------
 
 
@@ -160,9 +159,15 @@ function init() {
     // });
     // geometryの「geometry.verticesNeedUpdate」はレンダリング後に毎回falseになるらしいのでtrueをここで設定している。
     // https://stackoverflow.com/questions/24531109/three-js-vertices-does-not-update
-    mesh.geometry.verticesNeedUpdate = true;
+    //mesh.geometry.verticesNeedUpdate = true;
     // マウスでカメラを操作するため
     controls.update();
+
+    // // Check if the dash is out to stop animate it.
+    // if (lineMesh.material.uniforms.dashOffset.value < -2) return;
+
+    // // Decrement the dashOffset value to animate the path with the dash.
+    // lineMesh.material.uniforms.dashOffset.value -= 0.01;
 
     //シーンとカメラをいれる。
     renderer.render(scene,camera);

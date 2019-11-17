@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "dat.gui": "^0.7.6",
+    "meshline-andrewray": "^1.0.0",
     "three": "^0.110.0",
     "three-orbitcontrols": "^2.110.1",
     "three.meshline": "^1.2.0"
