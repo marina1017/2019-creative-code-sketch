@@ -1,3 +1,7 @@
+import * as THREE from 'three'
+import OrbitControls from 'three-orbitcontrols'
+import * as dat from 'dat.gui';
+
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
@@ -71,13 +75,13 @@ function init() {
 
 
   // マウス---------------
-  var controls = new THREE.OrbitControls(camera);
+  var controls = new OrbitControls(camera, renderer.domElement);
   //---------------------
 
   // ライト---------------
-  light = new THREE.DirectionalLight(0xcccccc,1);
-  light.position = new THREE.Vector3(0, 10, 10);
-  ambient = new THREE.AmbientLight(0x333333);
+  var light = new THREE.DirectionalLight(0xcccccc,1);
+  light.position.set(new THREE.Vector3(0, 10, 10));
+  var ambient = new THREE.AmbientLight(0x333333);
   scene.add(light);
   scene.add(ambient);
   //---------------------
@@ -95,8 +99,8 @@ function init() {
     };
   };
 
-  gui = new dat.GUI();
-  guiObj = new guiCtrl();
+  var gui = new dat.GUI();
+  var guiObj = new guiCtrl();
   var folder = gui.addFolder('Folder');
   folder.add( guiObj, 'Camera_x', 0, 100 ).onChange(setCameraPosition);
   folder.add( guiObj, 'Camera_y', 0, 100 ).onChange(setCameraPosition);
