@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import OrbitControls from 'three-orbitcontrols'
+import MeshLine from 'three.meshline'
 import * as dat from 'dat.gui';
 
 window.addEventListener('DOMContentLoaded', init);
@@ -11,7 +12,9 @@ function init() {
 
   // レンダラー---------------
   var renderer = new THREE.WebGLRenderer();
+  // レンダラーが描画するキャンバスサイズの設定
   renderer.setSize( window.innerWidth, window.innerHeight );
+  // キャンバスをDOMツリーに追加
   document.body.appendChild( renderer.domElement );
   //---------------------
 
@@ -23,7 +26,7 @@ function init() {
 
   //オブジェクト---------------
   // 形状データを作成
-  const geometry = new THREE.Geometry();
+  const geometry = new THREE.BoxGeometry(5, 5, 5);
   // 配置する範囲
   const SIZE = 3000;
   // 配置する個数
@@ -39,7 +42,7 @@ function init() {
     var particle = new THREE.Vector3(
       0,
       0,
-      0
+      100
     );
     // particle.velocity = new THREE.Vector3(
     //   0,
@@ -54,24 +57,24 @@ function init() {
 
 
   // マテリアル---------------
-  var material = new THREE.PointsMaterial({
-    // 一つ一つのサイズ
-    size: 100,
-    // 色
-    color: 0xffffff,
-    //ブレンド(加算)
-    blending: THREE.AdditiveBlending,
-    //透過するか
-    transparent: true,
-    clipIntersection: true
+  var material = new THREE.MeshStandardMaterial({
+    color: 0x0000ff
   });
   //---------------------
 
   // particle systemをつくる---------------
-  var mesh = new THREE.Points(
-    //第一引数は,geometry
+  // var mesh = new THREE.Points(
+  //   //第一引数は,geometry
+  //   geometry,
+  //   //第一引数は,マテリアル
+  //   material
+  // );
+  
+  //04の今回は「BoxGeometry」をつかっているのでメッシュをTHREE.Meshをつかっている
+  var mesh = new THREE.Mesh(
+    //第1引数は,ジオメトリ
     geometry,
-    //第一引数は,マテリアル
+    //第2引数は,マテリアル
     material
   );
 
@@ -83,8 +86,18 @@ function init() {
   var controls = new OrbitControls(camera, renderer.domElement);
   //---------------------
 
+  // クリック---------------
+  // マウスクリックイベントのリスナー登録
+  document.addEventListener( 'mousedown', clickPosition, false );
+  // クリックされたときになにするか
+  function clickPosition(event){
+    console.log("くりっくされました",event)
+  }
+  //---------------------
+
   // ライト---------------
-  var light = new THREE.DirectionalLight(0xcccccc,1);
+  //DirectionalLight(色,強度)をきめれる
+  var light = new THREE.DirectionalLight(0xffffff,2);
   light.position.set(new THREE.Vector3(0, 10, 10));
   var ambient = new THREE.AmbientLight(0x333333);
   scene.add(light);
@@ -148,7 +161,6 @@ function init() {
     // geometryの「geometry.verticesNeedUpdate」はレンダリング後に毎回falseになるらしいのでtrueをここで設定している。
     // https://stackoverflow.com/questions/24531109/three-js-vertices-does-not-update
     mesh.geometry.verticesNeedUpdate = true;
-    
     // マウスでカメラを操作するため
     controls.update();
 

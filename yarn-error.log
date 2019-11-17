@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/Cellar/node/12.12.0/bin/node /usr/local/Cellar/yarn/1.19.1/libexec/bin/yarn.js
+  /usr/local/Cellar/node/12.12.0/bin/node /usr/local/Cellar/yarn/1.19.1/libexec/bin/yarn.js 04
 
 PATH: 
   /Users/marina/.nodebrew/current/bin:/Users/marina/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  SyntaxError: /Users/marina/dev/2019-creative-code-sketch/package.json: Unexpected token } in JSON at position 819
+  SyntaxError: /Users/marina/dev/2019-creative-code-sketch/package.json: Unexpected token / in JSON at position 871
       at JSON.parse (<anonymous>)
       at /usr/local/Cellar/yarn/1.19.1/libexec/lib/cli.js:1625:59
       at Generator.next (<anonymous>)
@@ -31,7 +31,9 @@ npm manifest:
       "01": "parcel src/01-typography/index.html --no-hmr --port 1234  --out-dir sketches/01-typography",
       "02": "parcel src/02-color/index.html --no-hmr --port 1234  --out-dir sketches/02-color",
       "03": "parcel src/03-particle/index.html --no-hmr --port 1234 --out-dir sketches/03-particle --public-url ./ --no-source-maps",
-      "d01": "rm -rf sketches/01-typography/*.js && parcel build src/01-typography/index.html --out-dir sketches/01-typography --public-url ./  --no-source-maps"
+      "d03": "parcel src/03-particle/index.html",
+      "04": "parcel src/04-line/index.html --no-hmr --port 1234 --out-dir sketches/04-line --public-url ./ --no-source-maps",
+      "d04": "parcel src/04-line/index.html"
     },
     "devDependencies": {
       "parcel-bundler": "^1.12.4",
@@ -40,8 +42,10 @@ npm manifest:
     "dependencies": {
       "dat.gui": "^0.7.6",
       "three": "^0.110.0",
-      "three-orbitcontrols": "^2.110.1"
-    }	  }
+      "three-orbitcontrols": "^2.110.1",
+      // 04でつかう
+      "three.meshline": "^1.2.0"
+    }
   }
 
 yarn manifest: 
@@ -1748,6 +1752,11 @@ Lockfile:
     integrity sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=
     dependencies:
       assert-plus "^1.0.0"
+  
+  dat.gui@^0.7.6:
+    version "0.7.6"
+    resolved "https://registry.yarnpkg.com/dat.gui/-/dat.gui-0.7.6.tgz#92182a0f2dc96c26910f888238d3839166d82f76"
+    integrity sha512-9Uqr4aQUvp9q5P2b4y6gK604HXafubOq578OmOS8mjrIkYrBP4EbQ9gz9YRXgyPh7aQi+b9H/jAG7EucmhYpSA==
   
   data-urls@^1.1.0:
     version "1.1.0"
@@ -4849,6 +4858,21 @@ Lockfile:
       commander "^2.20.0"
       source-map "~0.6.1"
       source-map-support "~0.5.12"
+  
+  three-orbitcontrols@^2.110.1:
+    version "2.110.1"
+    resolved "https://registry.yarnpkg.com/three-orbitcontrols/-/three-orbitcontrols-2.110.1.tgz#105fdad47c1de122e465950d61bae5f327674a29"
+    integrity sha512-z7Mg6dvg3a1IEdfeNuHRr29a+NMFnPzZ8jJ6VRMOKqgB3FUUj0Xzt+uiAWylgVpmoH33mJcFxzMTjqb3AJ5L/A==
+  
+  three.meshline@^1.3.0:
+    version "1.2.0"
+    resolved "https://registry.yarnpkg.com/three.meshline/-/three.meshline-1.2.0.tgz#89a0c9d67d8062e5649dc0ac9aa16f14e7c199b5"
+    integrity sha512-E7s9xwgjUhQWIvXBMIdCOIvpT1qV9UlntzaaJTWzJvYtvI2ZvVsX8EM8FxoiG5aptXuKbp5osnvcJCCkYOjmBA==
+  
+  three@^0.110.0:
+    version "0.110.0"
+    resolved "https://registry.yarnpkg.com/three/-/three-0.110.0.tgz#8719591de1336269113ee79f4268ba247b2324f8"
+    integrity sha512-wlurH8XBO9Sd5VIw8nBa+taLR20kqaI4e9FiuMh6tqK8eOS2q2R+ZoUyufbyDTVTHhs8GiTbv0r2CMLkwerFJg==
   
   through2@^2.0.0, through2@~2.0.3:
     version "2.0.5"
