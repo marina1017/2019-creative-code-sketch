@@ -7,7 +7,9 @@
     "01": "parcel src/01-typography/index.html --no-hmr --port 1234  --out-dir sketches/01-typography",
     "02": "parcel src/02-color/index.html --no-hmr --port 1234  --out-dir sketches/02-color",
     "03": "parcel src/03-particle/index.html --no-hmr --port 1234 --out-dir sketches/03-particle --public-url ./ --no-source-maps",
-    "d03": "parcel src/03-particle/index.html"
+    "d03": "parcel src/03-particle/index.html",
+    "03": "parcel src/04-line/index.html --no-hmr --port 1234 --out-dir sketches/04-line --public-url ./ --no-source-maps",
+    "d04": "parcel src/04-line/index.html"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
