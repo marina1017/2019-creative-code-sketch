@@ -22,7 +22,7 @@ function init() {
 
   // カメラ---------------
   var camera = new THREE.PerspectiveCamera( 15, window.innerWidth / window.innerHeight);
-  camera.position.set(0, 0, 100);
+  camera.position.set(0, 0, 50);
   scene.add(camera);
   //---------------------
 
@@ -31,43 +31,43 @@ function init() {
   const segmentLength = 1;
   const nbrOfPoints = 10;
   const points = [];
+  const turbulence = 0.5;
   for (let i = 0; i < nbrOfPoints; i++) {
-    points.push(i * segmentLength, 0, 0);
+    // THREE.Vector3にポイントをラップする必要があります
+    points.push(new THREE.Vector3(
+      i * segmentLength,
+      (Math.random() * (turbulence * 2)) - turbulence,
+      (Math.random() * (turbulence * 2)) - turbulence,
+    ));
   }
+
+  // 3Dスプライン
+  const linePoints = new THREE.Geometry().setFromPoints(
+    new THREE.CatmullRomCurve3(points).getPoints(50)
+  );
+
   var line = new MeshLine();
-  line.setGeometry(points);
+  line.setGeometry(linePoints);
   const geometry = line.geometry;
   //---------------------
 
 
   // マテリアル---------------
-  // Build the material with good parameters to animate it.
+  // 適切なパラメータを使用してマテリアルを構築し、アニメーション化します。
   const material = new MeshLineMaterial({
     transparent: true,
-    lineWidth: 0.1,
+    lineWidth: 0.2,
     color: new THREE.Color('#ff0000'),
-    dashArray: 2,     // always has to be the double of the line
-    dashOffset: 0,    // start the dash at zero
-    dashRatio: 0.75,  // visible length range min: 0.99, max: 0.5
+    //常に行の2倍でなければなりません
+    dashArray: 2,
+    //ゼロからダッシュを開始
+    dashOffset: 0, 
+    //可視の長さの範囲最小：0.99、最大：0.5
+    dashRatio: 0.75, 
   });
   //---------------------
 
   // particle systemをつくる---------------
-  // var mesh = new THREE.Points(
-  //   //第一引数は,geometry
-  //   geometry,
-  //   //第一引数は,マテリアル
-  //   material
-  // );
-  
-  //04の今回は「BoxGeometry」をつかっているのでメッシュをTHREE.Meshをつかっている
-  // var mesh = new THREE.Mesh(
-  //   //第1引数は,ジオメトリ
-  //   geometry,
-  //   //第2引数は,マテリアル
-  //   material
-  // );
-   // Build the Mesh
    const lineMesh = new THREE.Mesh(
      //第1引数は,ジオメトリ
      line.geometry, 
@@ -162,7 +162,7 @@ function init() {
     // マウスでカメラを操作するため
     controls.update();
 
-    // // Check if the dash is out to stop animate it.
+    // アニメーションを停止するには、ダッシュが出ているかどうかを確認します。
     if (lineMesh.material.uniforms.dashOffset.value < -2) return;
     console.log(lineMesh.material.uniforms.dashOffset)
     // dashOffset値をデクリメントして、パスをダッシュでアニメーション化します。
