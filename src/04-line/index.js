@@ -4,6 +4,7 @@ import * as dat from 'dat.gui'
 // importにやたらめったらはまった 下記のPRがマージされるまではaddAttribute()を.setAttribute()に変更する必要がある
 // https://github.com/spite/THREE.MeshLine/pull/92/files
 import { MeshLine, MeshLineMaterial, } from 'three.meshline';
+import { Material } from 'three';
 
 window.addEventListener('DOMContentLoaded', init);
 //生成するラインの個数
@@ -47,10 +48,9 @@ function init() {
       }
 
       // 3Dスプライン
-      const linePoints = new THREE.Geometry().setFromPoints(
+      var linePoints = new THREE.Geometry().setFromPoints(
         new THREE.CatmullRomCurve3(points).getPoints(500)
       );
-
       var line = new MeshLine();
       line.setGeometry(linePoints);
       geometries[i] = line.geometry;
@@ -77,20 +77,14 @@ function init() {
   });
   material.transparent = true
   
-  //---------------------
-
-  // particle systemをつくる---------------
-  //  const lineMesh = new THREE.Mesh(
-  //    //第1引数は,ジオメトリ
-  //    geometry, 
-  //    //第2引数は,マテリアル
-  //    material
-  //  );
-  //  lineMesh.position.x = 0;
-  //  scene.add(lineMesh);
-   
+  //Meshに追加する---------------------
   for(var i = 0; i < NUM; i++) {
-    var lineMesh = new THREE.Mesh( geometries[i], material);
+    material.color.set('#26a01e')
+    var lineMesh = new THREE.Mesh( 
+      //第1引数は,ジオメトリ
+      geometries[i],
+      //第2引数は,マテリアル
+      material);
     lineMesh.position.x = 0;
     lineMesh.rotation.x = i / 10*Math.PI*Math.random(0,1000);
     lineMesh.rotation.y = i / 10*Math.PI*Math.random(0,1000);
@@ -128,8 +122,7 @@ function init() {
     this.Camera_x = 0;
     this.Camera_y = 0;
     this.Camera_z = 100;
-    this.Message = '';
-    this.color = "#FFFFFF";
+    this.color = "#26a01e";
     this.dashRatio = 0.985
   };
 
@@ -153,9 +146,9 @@ function init() {
     var red   = parseInt(code.substring(1,3), 16);
     var green = parseInt(code.substring(3,5), 16);
     var blue  = parseInt(code.substring(5,7), 16);
-    mesh.material.color.r  = red / 255
-    mesh.material.color.g  = green / 255
-    mesh.material.color.b  = blue / 255
+    lineMesh.material.color.r  = red / 255
+    lineMesh.material.color.g  = green / 255
+    lineMesh.material.color.b  = blue / 255
   }
 
   function setDashRatio(){
@@ -168,20 +161,10 @@ function init() {
     // マウスでカメラを操作するため
     controls.update();
 
-    // アニメーションを停止するには、ダッシュが出ているかどうかを確認します。
-    //if (lineMesh.material.uniforms.dashOffset.value < -2) return;
     // dashOffset値をデクリメントして、パスをダッシュでアニメーション化します。
-    //lineMesh.material.uniforms.dashOffset.value -= 0.01;
-    //for(var i = 0; i < NUM; i++) {
     lineMesh.material.uniforms.dashOffset.value -= 0.01;
-    lineMesh.rotation.y += 0.005;
-      // lineMeshs[i].rotation.y += i / 25000 * Math.PI;
-      // lineMeshs[i].rotation.x += i / 25000 * Math.PI;
-      // lineMeshs[i].scale.x = 0.3 * Math.sin( Date.now() / 2000) + 1;
-      // lineMeshs[i].scale.y = 0.3 * Math.sin( Date.now() / 2000) + 1;
-      // lineMeshs[i].rotation.y += 0.005;
-    //}
-
+    //色の更新をするのに必要
+    lineMesh.geometry.colorsNeedUpdate = true;
     //リピートするのに必要
     requestAnimationFrame(render);
     //シーンとカメラをいれる。
