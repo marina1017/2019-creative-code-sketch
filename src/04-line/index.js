@@ -6,6 +6,8 @@ import * as dat from 'dat.gui'
 import { MeshLine, MeshLineMaterial, } from 'three.meshline';
 
 window.addEventListener('DOMContentLoaded', init);
+//生成するラインの個数
+var NUM = 200;
 
 function init() {
   // シーン---------------
@@ -27,28 +29,35 @@ function init() {
   //---------------------
 
   //オブジェクト---------------
-  // 
-  const segmentLength = 1;
-  const nbrOfPoints = 10;
-  const points = [];
-  const turbulence = 0.5;
-  for (let i = 0; i < nbrOfPoints; i++) {
-    // THREE.Vector3にポイントをラップする必要があります
-    points.push(new THREE.Vector3(
-      i * segmentLength,
-      (Math.random() * (turbulence * 2)) - turbulence,
-      (Math.random() * (turbulence * 2)) - turbulence,
-    ));
-  }
+    //geometryをいっぱい作る
+    var geometries = [];
+    for(var i = 0; i < NUM; i++) {
+      const segmentLength = 1;
+      const nbrOfPoints = 15;
+      const points = [];
+      //ランダム性？
+      const turbulence = Math.random(0.1,3.5);
+      for (let i = 0; i < nbrOfPoints; i++) {
+        // THREE.Vector3にポイントをラップする必要があります
+        points.push(new THREE.Vector3(
+          i * segmentLength,
+          (Math.random() * (turbulence * 2)) - turbulence,
+          (Math.random() * (turbulence * 2)) - turbulence,
+        ));
+      }
 
-  // 3Dスプライン
-  const linePoints = new THREE.Geometry().setFromPoints(
-    new THREE.CatmullRomCurve3(points).getPoints(50)
-  );
+      // 3Dスプライン
+      const linePoints = new THREE.Geometry().setFromPoints(
+        new THREE.CatmullRomCurve3(points).getPoints(500)
+      );
 
-  var line = new MeshLine();
-  line.setGeometry(linePoints);
-  const geometry = line.geometry;
+      var line = new MeshLine();
+      line.setGeometry(linePoints);
+      geometries[i] = line.geometry;
+    }
+    console.log("geometries",geometries[0])
+
+
   //---------------------
 
 
@@ -56,27 +65,39 @@ function init() {
   // 適切なパラメータを使用してマテリアルを構築し、アニメーション化します。
   const material = new MeshLineMaterial({
     transparent: true,
-    lineWidth: 0.2,
+    lineWidth: 0.4,
     color: new THREE.Color('#ff0000'),
+    opacity: 0.5,
     //常に行の2倍でなければなりません
-    dashArray: 2,
+    dashArray: 4,
     //ゼロからダッシュを開始
     dashOffset: 0, 
     //可視の長さの範囲最小：0.99、最大：0.5
-    dashRatio: 0.75, 
+    dashRatio: 0.985, 
   });
+  material.transparent = true
+  
   //---------------------
 
   // particle systemをつくる---------------
-   const lineMesh = new THREE.Mesh(
-     //第1引数は,ジオメトリ
-     line.geometry, 
-     //第2引数は,マテリアル
-     material
-   );
-   lineMesh.position.x = -4.5;
+  //  const lineMesh = new THREE.Mesh(
+  //    //第1引数は,ジオメトリ
+  //    geometry, 
+  //    //第2引数は,マテリアル
+  //    material
+  //  );
+  //  lineMesh.position.x = 0;
+  //  scene.add(lineMesh);
+   
+  for(var i = 0; i < NUM; i++) {
+    var lineMesh = new THREE.Mesh( geometries[i], material);
+    lineMesh.position.x = 0;
+    lineMesh.rotation.x = i / 10*Math.PI*Math.random(0,1000);
+    lineMesh.rotation.y = i / 10*Math.PI*Math.random(0,1000);
+    scene.add(lineMesh);
+  }
 
-  scene.add(lineMesh);
+  
   //---------------------
 
 
@@ -109,10 +130,7 @@ function init() {
     this.Camera_z = 100;
     this.Message = '';
     this.color = "#FFFFFF";
-    this.size = 10;
-    this.alert = function(){
-      alert("アラートのテスト");
-    };
+    this.dashRatio = 0.985
   };
 
   var gui = new dat.GUI();
@@ -122,8 +140,7 @@ function init() {
   folder.add( guiObj, 'Camera_y', 0, 100 ).onChange(setCameraPosition);
   folder.add( guiObj, 'Camera_z', 0, 100 ).onChange(setCameraPosition);
   folder.addColor( guiObj , 'color' ).onChange(setColor);
-  folder.add( guiObj, 'size', 10, 1000).onChange(setSize);
-  folder.add( guiObj, 'alert' );
+  folder.add( guiObj, 'dashRatio', 0.5, 0.99).onChange(setDashRatio);
   folder.open();
 
   function setCameraPosition(){
@@ -141,33 +158,32 @@ function init() {
     mesh.material.color.b  = blue / 255
   }
 
-  function setSize(){
-    mesh.material.size = guiObj.size;
+  function setDashRatio(){
+    material.dashRatio = guiObj.dashRatio;
   }
   //---------------------
   
   // レンダリング---------------------
   function render(){
-    requestAnimationFrame(render);
-    //particle system自体をまわす
-    //mesh.rotation.y += 0.001;
-
-    // meshに設定したgeometryの中に入っている点のy軸をランダムに動かすようにする
-    // mesh.geometry.vertices.forEach(vertex => {
-    //   vertex.setY(vertex.y + vertex.velocity.y);
-    // });
-    // geometryの「geometry.verticesNeedUpdate」はレンダリング後に毎回falseになるらしいのでtrueをここで設定している。
-    // https://stackoverflow.com/questions/24531109/three-js-vertices-does-not-update
-    //mesh.geometry.verticesNeedUpdate = true;
     // マウスでカメラを操作するため
     controls.update();
 
     // アニメーションを停止するには、ダッシュが出ているかどうかを確認します。
-    if (lineMesh.material.uniforms.dashOffset.value < -2) return;
-    console.log(lineMesh.material.uniforms.dashOffset)
+    //if (lineMesh.material.uniforms.dashOffset.value < -2) return;
     // dashOffset値をデクリメントして、パスをダッシュでアニメーション化します。
+    //lineMesh.material.uniforms.dashOffset.value -= 0.01;
+    //for(var i = 0; i < NUM; i++) {
     lineMesh.material.uniforms.dashOffset.value -= 0.01;
+    lineMesh.rotation.y += 0.005;
+      // lineMeshs[i].rotation.y += i / 25000 * Math.PI;
+      // lineMeshs[i].rotation.x += i / 25000 * Math.PI;
+      // lineMeshs[i].scale.x = 0.3 * Math.sin( Date.now() / 2000) + 1;
+      // lineMeshs[i].scale.y = 0.3 * Math.sin( Date.now() / 2000) + 1;
+      // lineMeshs[i].rotation.y += 0.005;
+    //}
 
+    //リピートするのに必要
+    requestAnimationFrame(render);
     //シーンとカメラをいれる。
     renderer.render(scene,camera);
   }
