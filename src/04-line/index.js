@@ -1,13 +1,9 @@
 import * as THREE from 'three'
 import OrbitControls from 'three-orbitcontrols'
 import * as dat from 'dat.gui'
-// importにやたらめったらはまった
-// import * as Meshline from 'three.meshline'
-// だとだめなのかだれか教えてほしい・・・・
-// 参考 https://github.com/spite/THREE.MeshLine/issues/28
-import { MeshLine, MeshLineMaterial, } from 'meshline-andrewray'
-//import { MeshLine, MeshLineMaterial, } from 'three.meshline'
-;
+// importにやたらめったらはまった 下記のPRがマージされるまではaddAttribute()を.setAttribute()に変更する必要がある
+// https://github.com/spite/THREE.MeshLine/pull/92/files
+import { MeshLine, MeshLineMaterial, } from 'three.meshline';
 
 window.addEventListener('DOMContentLoaded', init);
 
@@ -32,13 +28,15 @@ function init() {
 
   //オブジェクト---------------
   // 
-  var geometry = new THREE.Geometry();
-  for( var j = 0; j < Math.PI; j += 2 * Math.PI / 100 ) {
-	  var v = new THREE.Vector3( Math.cos( j ), Math.sin( j ), 0 );
-	  geometry.vertices.push( v );
+  const segmentLength = 1;
+  const nbrOfPoints = 10;
+  const points = [];
+  for (let i = 0; i < nbrOfPoints; i++) {
+    points.push(i * segmentLength, 0, 0);
   }
   var line = new MeshLine();
-  line.setGeometry( geometry );
+  line.setGeometry(points);
+  const geometry = line.geometry;
   //---------------------
 
 
@@ -47,7 +45,7 @@ function init() {
   const material = new MeshLineMaterial({
     transparent: true,
     lineWidth: 0.1,
-    //color: new Color('#ff0000'),
+    color: new THREE.Color('#ff0000'),
     dashArray: 2,     // always has to be the double of the line
     dashOffset: 0,    // start the dash at zero
     dashRatio: 0.75,  // visible length range min: 0.99, max: 0.5
@@ -76,6 +74,7 @@ function init() {
      //第2引数は,マテリアル
      material
    );
+   lineMesh.position.x = -4.5;
 
   scene.add(lineMesh);
   //---------------------
@@ -164,10 +163,10 @@ function init() {
     controls.update();
 
     // // Check if the dash is out to stop animate it.
-    // if (lineMesh.material.uniforms.dashOffset.value < -2) return;
-
-    // // Decrement the dashOffset value to animate the path with the dash.
-    // lineMesh.material.uniforms.dashOffset.value -= 0.01;
+    if (lineMesh.material.uniforms.dashOffset.value < -2) return;
+    console.log(lineMesh.material.uniforms.dashOffset)
+    // dashOffset値をデクリメントして、パスをダッシュでアニメーション化します。
+    lineMesh.material.uniforms.dashOffset.value -= 0.01;
 
     //シーンとカメラをいれる。
     renderer.render(scene,camera);
