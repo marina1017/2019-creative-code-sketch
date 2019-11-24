@@ -9,7 +9,9 @@
     "03": "parcel src/03-particle/index.html --no-hmr --port 1234 --out-dir sketches/03-particle --public-url ./ --no-source-maps",
     "d03": "parcel src/03-particle/index.html",
     "04": "parcel src/04-line/index.html --no-hmr --port 1234 --out-dir sketches/04-line --public-url ./ --no-source-maps",
-    "d04": "parcel src/04-line/index.html"
+    "d04": "parcel src/04-line/index.html",
+    "05": "parcel src/05-movie/index.html --no-hmr --port 1234 --out-dir sketches/05-movie --public-url ./ --no-source-maps",
+    "d05": "parcel src/05-movie/index.html"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
@@ -20,6 +22,7 @@
     "meshline-andrewray": "^1.0.0",
     "three": "^0.110.0",
     "three-orbitcontrols": "^2.110.1",
-    "three.meshline": "^1.2.0"
+    "three.meshline": "^1.2.0",
+    "lottie-web": "^5.5.10"
   }
 }

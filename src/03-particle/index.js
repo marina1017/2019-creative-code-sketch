@@ -36,6 +36,7 @@ function init() {
       SIZE * (Math.random() - 0.5),
       SIZE * (Math.random() - 0.5)
     );
+    //particleオブジェクトにvelocityプロパティをいれる
     particle.velocity = new THREE.Vector3(
       0,
       Math.random(1,10),
