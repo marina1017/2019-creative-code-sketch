@@ -19,22 +19,23 @@ function init() {
   //---------------------
 
   //動画のテクスチャ---------------------
+  console.log("テスト",document.getElementById("video_place").getAttribute("src"))
   var video = document.createElement( 'video' );
   video.width = 640;
   video.height = 360;
   video.autoplay = true;
   video.loop = true;
-  video.src = "test.mp4";
+  video.src = document.getElementById("video_place").getAttribute("src");
 
-  // var texture = new THREE.VideoTexture( video );
-  // texture.minFilter = THREE.LinearFilter;
-  //var material   = new THREE.MeshBasicMaterial( { map : texture } );
-  //const material = new THREE.MeshBasicMaterial({color: 0x6699FF});
-  console.log("テスト",document.getElementById("image_place").getAttribute("src"))
-  var texture = new THREE.TextureLoader().load( document.getElementById("image_place").getAttribute("src"));
-  console.log("texture",texture)
-  var material = new THREE.MeshBasicMaterial( { map: texture } );
-  console.log("material",material)
+  var texture = new THREE.VideoTexture( video );
+  texture.minFilter = THREE.LinearFilter;
+  var material   = new THREE.MeshBasicMaterial( { map : texture } );
+  
+  
+  // var texture = new THREE.TextureLoader().load( document.getElementById("image_place").getAttribute("src"));
+  // console.log("texture",texture)
+  // var material = new THREE.MeshBasicMaterial( { map: texture } );
+  // console.log("material",material)
   
   //---------------------
 
