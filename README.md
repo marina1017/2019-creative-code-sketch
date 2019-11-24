@@ -119,3 +119,50 @@ var lineMesh = new THREE.Mesh(
       materials[i]);
 ```
 
+## 第5回　動画
+### ビルドの仕方
+開発環境の場合
+
+```
+yarn d05
+```
+
+`https://marina1017.github.io/2019-creative-code-sketch/sketches/05-movie/`にまとめる場合
+
+```
+yarn 05
+```
+### コンセプト
+360度動画を使ってオブジェクトに貼り付けてぐるぐる回せるようにした
+本当はNHKの動画ライブラリがすごいので、その紹介をしたかったのだが、残念ながらNHKの動画ライブラリに360度動画がなかったので「https://360rtc.com/」をつかわせていただいた
+
+### 使った技術
+parcel
+yarn
+three.js
+orbitcontrols.js
+
+
+
+### 作品
+https://marina1017.github.io/2019-creative-code-sketch/sketches/05-movie/
+
+### コード
+https://github.com/marina1017/2019-creative-code-sketch/tree/master/src/05-movie
+
+### 躓いたところ・わからなかったところ
+#### ParcelでjsファイルからTextureを読み込めない問題
+一回videoタグで読み込ませて、jsからそのurlを取り出し、Texture画像として取り込む作戦にしたらできた。(もっといい方法がありそう)
+CSSで動画を透明にすることで、存在するけど見せないようにした、がほんとにこれでいいのかはよくわからなかった。
+
+```
+<video id="video_place" src="test2.mp4" autoplay width="10" height="10"></video>
+```
+
+#### 動画がミュートするとなぜかとまる 
+video.muted = ture にするとなんかしらないが、動画がとまるので音量を小さくした。ほんとはミュートしたいのに・・・・・
+音量を0にすると動画がとまるので0.01とかを設定してみる
+(もっといい方法ありそう)
+
+ローカルで音量を0.01にした場合は音量がほぼ聞こえなくなるのに
+Parcelでビルド(?)したあとは音量がもとに戻ってしまう・・・・なんでだろう？
