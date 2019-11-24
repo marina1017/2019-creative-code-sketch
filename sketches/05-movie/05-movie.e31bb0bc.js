@@ -36005,11 +36005,15 @@ function init() {
   //動画のテクスチャ---------------------
 
   console.log("テスト", document.getElementById("video_place").getAttribute("src"));
-  var video = document.createElement('video');
+  var video = document.createElement('video'); //video.muted = ture にするとなんかしらないが動画がとまるので音量を小さくした
+
+  video.volume = 0.01;
   video.width = 640;
   video.height = 360;
   video.autoplay = true;
-  video.loop = true;
+  video.loop = true; //parcelを使っている影響かjsから動画が読み込めないので、
+  //一旦HTMLで読み込んでおいて、srcを読み出して入れるとうまくいった
+
   video.src = document.getElementById("video_place").getAttribute("src");
   var texture = new THREE.VideoTexture(video);
   texture.minFilter = THREE.LinearFilter;
