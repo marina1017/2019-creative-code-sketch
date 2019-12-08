@@ -5,11 +5,11 @@
   <title>Textureの練習</title>
   <style>
     html, body {
-      background-color: #000;
+      /* background-color: #000; */
       width: 100%;
       height:100%;
       margin: 0;
-      overflow: hidden;
+      /* overflow: hidden; */
     }
 
     #lottie {
@@ -27,7 +27,7 @@
     　var animation = bodymovin.loadAnimation({
         container: document.getElementById('lottie'), // Required
         path: 'https://marina1017.github.io/2019-creative-code-sketch/src/06-logo/data.json', // Required
-        renderer: 'svg', // Required
+        renderer: 'svg/canvas/html', // Required
         loop: true, // Optional
         autoplay: true, // Optional
         name: "Hello World", // Name for future reference. Optional.
