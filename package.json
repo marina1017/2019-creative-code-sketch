@@ -12,7 +12,8 @@
     "d04": "parcel src/04-line/index.html",
     "05": "parcel src/05-movie/index.html --no-hmr --port 1234 --out-dir sketches/05-movie --public-url ./ --no-source-maps",
     "d05": "parcel src/05-movie/index.html",
-    "d06": "parcel src/06-logo/index.html"
+    "d06": "parcel src/06-logo/index.html",
+    "d06_2": "parcel src/06-logo_2/index.html"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
