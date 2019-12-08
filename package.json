@@ -13,7 +13,7 @@
     "05": "parcel src/05-movie/index.html --no-hmr --port 1234 --out-dir sketches/05-movie --public-url ./ --no-source-maps",
     "d05": "parcel src/05-movie/index.html",
     "d06": "parcel src/06-logo/index.html",
-    "d06_2": "parcel src/06-logo_2/index.html"
+    "d07": "parcel src/07-camera/index.html"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
@@ -22,9 +22,14 @@
   "dependencies": {
     "dat.gui": "^0.7.6",
     "meshline-andrewray": "^1.0.0",
-    "three": "^0.110.0",
+    "postprocessing": "^6.8.9",
+    "stats": "^1.0.0",
+    "stats.js": "^0.17.0",
+    "tats": "^0.1.1",
+    "three": "^0.111.0",
+    "three-effectcomposer": "^0.0.1",
     "three-orbitcontrols": "^2.110.1",
-    "three.meshline": "^1.2.0",
-    "lottie-web": "^5.5.10"
+    "three.js": "^0.77.1",
+    "three.meshline": "^1.2.0"
   }
 }

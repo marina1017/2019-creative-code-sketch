@@ -166,3 +166,30 @@ video.muted = ture にするとなんかしらないが、動画がとまるの�
 
 ローカルで音量を0.01にした場合は音量がほぼ聞こえなくなるのに
 Parcelでビルド(?)したあとは音量がもとに戻ってしまう・・・・なんでだろう？
+
+
+## 第6回　動画
+Lottieと和解した。動画はLottieの素材動画からお借りしている。
+
+## サンプル
+https://marina1017.github.io/2019-creative-code-sketch/src/06-logo/
+
+## コード
+https://github.com/marina1017/2019-creative-code-sketch/tree/master/src/06-logo
+
+### うまくいかなかった原因
+#### jsonまわり
+なんかindex.htmlからjsonを読み込ませようとすると、ブラウザから拒否される
+名前は忘れてしまったがクロスサイトスクリプト防止の為？だったかな(忘れてしまった)
+
+parcelでサーバーをたてて確認しようとするも、jsからjsonを読み込むパスの生成がうまく行かずに断念
+結局github pagesにpushして確認することにした。
+
+#### CSSまわり
+Lottieの扱い方はらくなのだが、CSSがわで指定するdivに画面サイズを指定しなければならないことに気がつくまでに時間がかかってしまった
+
+####  CDNまわり
+https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.9/lottie.js
+Lottieの名前がbodymovinなのかLottieなのか、曖昧ですごく困った・・・・
+
+

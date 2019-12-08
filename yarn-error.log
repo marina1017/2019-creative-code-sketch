@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/local/Cellar/node/12.12.0/bin/node /usr/local/Cellar/yarn/1.19.1/libexec/bin/yarn.js 04
+  /usr/local/Cellar/node/12.12.0/bin/node /usr/local/Cellar/yarn/1.19.1/libexec/bin/yarn.js add three.j
 
 PATH: 
-  /Users/marina/.nodebrew/current/bin:/Users/marina/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+  /var/folders/95/8ggzj3vx149_c6qw0q0k8b2h0000gn/T/yarn--1575817199356-0.23192231116603157:/Users/marina/dev/2019-creative-code-sketch/node_modules/.bin:/Users/marina/.config/yarn/link/node_modules/.bin:/usr/local/Cellar/node/12.12.0/libexec/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/Cellar/node/12.12.0/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/Cellar/node/12.12.0/bin/node_modules/npm/bin/node-gyp-bin:/Users/marina/.nodebrew/current/bin:/Users/marina/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 Yarn version: 
   1.19.1
@@ -14,12 +14,17 @@ Platform:
   darwin x64
 
 Trace: 
-  SyntaxError: /Users/marina/dev/2019-creative-code-sketch/package.json: Unexpected token / in JSON at position 871
-      at JSON.parse (<anonymous>)
-      at /usr/local/Cellar/yarn/1.19.1/libexec/lib/cli.js:1625:59
-      at Generator.next (<anonymous>)
-      at step (/usr/local/Cellar/yarn/1.19.1/libexec/lib/cli.js:304:30)
-      at /usr/local/Cellar/yarn/1.19.1/libexec/lib/cli.js:315:13
+  Error: https://registry.yarnpkg.com/three.j: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.19.1/libexec/lib/cli.js:66926:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.19.1/libexec/lib/cli.js:140564:22)
+      at Request.emit (events.js:210:5)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.19.1/libexec/lib/cli.js:141536:10)
+      at Request.emit (events.js:210:5)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.19.1/libexec/lib/cli.js:141458:12)
+      at Object.onceWrapper (events.js:299:28)
+      at IncomingMessage.emit (events.js:215:7)
+      at endReadableNT (_stream_readable.js:1183:12)
+      at processTicksAndRejections (internal/process/task_queues.js:80:21)
 
 npm manifest: 
   {
@@ -33,17 +38,25 @@ npm manifest:
       "03": "parcel src/03-particle/index.html --no-hmr --port 1234 --out-dir sketches/03-particle --public-url ./ --no-source-maps",
       "d03": "parcel src/03-particle/index.html",
       "04": "parcel src/04-line/index.html --no-hmr --port 1234 --out-dir sketches/04-line --public-url ./ --no-source-maps",
-      "d04": "parcel src/04-line/index.html"
+      "d04": "parcel src/04-line/index.html",
+      "05": "parcel src/05-movie/index.html --no-hmr --port 1234 --out-dir sketches/05-movie --public-url ./ --no-source-maps",
+      "d05": "parcel src/05-movie/index.html",
+      "d06": "parcel src/06-logo/index.html",
+      "d07": "parcel src/07-camera/index.html"
     },
     "devDependencies": {
       "parcel-bundler": "^1.12.4",
       "typescript": "^3.6.4"
     },
     "dependencies": {
+      "@johh/three-effectcomposer": "^0.0.7",
       "dat.gui": "^0.7.6",
+      "meshline-andrewray": "^1.0.0",
+      "stats": "^1.0.0",
+      "stats-js": "^1.0.1",
       "three": "^0.110.0",
+      "three-effectcomposer": "^0.0.1",
       "three-orbitcontrols": "^2.110.1",
-      // 04でつかう
       "three.meshline": "^1.2.0"
     }
   }
@@ -742,6 +755,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.3.tgz#f060bf6eaafae4d56a7dac618980838b0696e2ab"
     integrity sha512-FmuxfCuolpLl0AnQ2NHSzoUKWEJDFl63qXjzdoWBVyFCXzMGm1spBzk7LeHNoVCiWCF7mRVms9e6jEV9+MoPbg==
   
+  "@johh/three-effectcomposer@^0.0.7":
+    version "0.0.7"
+    resolved "https://registry.yarnpkg.com/@johh/three-effectcomposer/-/three-effectcomposer-0.0.7.tgz#f0849d0094ea09696a04942b368e9f02df426c52"
+    integrity sha512-1eiEsxSBXfNoUyoprA8NtlP4ffE//EhKXtTH2F/FPzMnkYqPECAbx69RQSVDSs1unA/piE/jSrGg3B+pGM0r1w==
+  
   "@mrmlnc/readdir-enhanced@^2.2.1":
     version "2.2.1"
     resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -1429,6 +1447,11 @@ Lockfile:
     version "1.2.8"
     resolved "https://registry.yarnpkg.com/command-exists/-/command-exists-1.2.8.tgz#715acefdd1223b9c9b37110a149c6392c2852291"
     integrity sha512-PM54PkseWbiiD/mMsbvW351/u+dafwTJ0ye2qB60G1aGQP9j3xK2gmMDc+R34L3nDtx4qMCitXT75mkbkGJDLw==
+  
+  commander@0.5.2:
+    version "0.5.2"
+    resolved "https://registry.yarnpkg.com/commander/-/commander-0.5.2.tgz#f270326709a115a126cfed5623852439b8e4a3b5"
+    integrity sha1-8nAyZwmhFaEmz+1WI4UkObjko7U=
   
   commander@^2.11.0, commander@^2.19.0, commander@^2.20.0:
     version "2.20.3"
@@ -3102,6 +3125,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/merge2/-/merge2-1.3.0.tgz#5b366ee83b2f1582c48f87e47cf1a9352103ca81"
     integrity sha512-2j4DAdlBOkiSZIsaXk4mTE3sRS02yBHAtfy127xRV3bQUFqXkjHCHLW6Scv7DwNRbIWNHH8zpnz9zMaKXIdvYw==
   
+  meshline-andrewray@^1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/meshline-andrewray/-/meshline-andrewray-1.0.0.tgz#803b94fc4fc7ad4b946f3486f7d3bbe8dc9a89d6"
+    integrity sha1-gDuU/E/HrUuUbzSG99O76NyaidY=
+  
   micromatch@^3.0.4, micromatch@^3.1.10, micromatch@^3.1.4:
     version "3.1.10"
     resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-3.1.10.tgz#70859bc95c9840952f359a068a3fc49f9ecfac23"
@@ -4674,6 +4702,18 @@ Lockfile:
       static-eval "^2.0.0"
       through2 "~2.0.3"
   
+  stats-js@^1.0.1:
+    version "1.0.1"
+    resolved "https://registry.yarnpkg.com/stats-js/-/stats-js-1.0.1.tgz#377c36490c1935b9a4e68bf3acc3afeb59878f66"
+    integrity sha512-EAwEFghGNv8mlYC4CZzI5kWghsnP8uBKXw6VLRHtXkOk5xySfUKLTqTkjgJFfDluIkf/O7eZwi5MXP50VeTbUg==
+  
+  stats@^1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/stats/-/stats-1.0.0.tgz#4a3f63d81bd52cdecee313dacf1572aff57b7d29"
+    integrity sha1-Sj9j2BvVLN7O4xPazxVyr/V7fSk=
+    dependencies:
+      commander "0.5.2"
+  
   "statuses@>= 1.5.0 < 2", statuses@~1.5.0:
     version "1.5.0"
     resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
@@ -4859,12 +4899,24 @@ Lockfile:
       source-map "~0.6.1"
       source-map-support "~0.5.12"
   
+  three-copyshader@0.0.1:
+    version "0.0.1"
+    resolved "https://registry.yarnpkg.com/three-copyshader/-/three-copyshader-0.0.1.tgz#ddfa6c3f5dbce596187cfbf4ce1b46c7fbd456c0"
+    integrity sha1-3fpsP1285ZYYfPv0zhtGx/vUVsA=
+  
+  three-effectcomposer@^0.0.1:
+    version "0.0.1"
+    resolved "https://registry.yarnpkg.com/three-effectcomposer/-/three-effectcomposer-0.0.1.tgz#09f438bfc76e522a985e5b8867d6b407eddd1d12"
+    integrity sha1-CfQ4v8duUiqYXluIZ9a0B+3dHRI=
+    dependencies:
+      three-copyshader "0.0.1"
+  
   three-orbitcontrols@^2.110.1:
     version "2.110.1"
     resolved "https://registry.yarnpkg.com/three-orbitcontrols/-/three-orbitcontrols-2.110.1.tgz#105fdad47c1de122e465950d61bae5f327674a29"
     integrity sha512-z7Mg6dvg3a1IEdfeNuHRr29a+NMFnPzZ8jJ6VRMOKqgB3FUUj0Xzt+uiAWylgVpmoH33mJcFxzMTjqb3AJ5L/A==
   
-  three.meshline@^1.3.0:
+  three.meshline@^1.2.0:
     version "1.2.0"
     resolved "https://registry.yarnpkg.com/three.meshline/-/three.meshline-1.2.0.tgz#89a0c9d67d8062e5649dc0ac9aa16f14e7c199b5"
     integrity sha512-E7s9xwgjUhQWIvXBMIdCOIvpT1qV9UlntzaaJTWzJvYtvI2ZvVsX8EM8FxoiG5aptXuKbp5osnvcJCCkYOjmBA==
