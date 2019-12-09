@@ -193,3 +193,16 @@ https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.9/lottie.js
 Lottieの名前がbodymovinなのかLottieなのか、曖昧ですごく困った・・・・
 
 
+## 第7回　カメラ
+
+### コンセプト
+本当は、被写界深度をわかりやすくする作品をつくりたかった。作りたい気持ちはあった・・・・・・
+postprocessingという拡張ライブラリ？の公式のexampleのコードが古くて何もわからなくて虚無になった。
+ようやくpostprocessingを動かせるコードになったのでとりあえずきらめく回転する立方体ができあがった。
+これから研究していきたい
+
+## 作品
+https://marina1017.github.io/2019-creative-code-sketch/sketches/07-camera/
+
+## コード
+https://github.com/marina1017/2019-creative-code-sketch/tree/master/src/07-camera
