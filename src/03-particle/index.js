@@ -2,6 +2,9 @@ import * as THREE from 'three'
 import OrbitControls from 'three-orbitcontrols'
 import * as dat from 'dat.gui'
 
+import { MeshLine, MeshLineMaterial, } from 'three.meshline';
+import { Material } from 'three';
+
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
