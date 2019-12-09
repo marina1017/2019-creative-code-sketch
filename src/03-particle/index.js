@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import OrbitControls from 'three-orbitcontrols'
-import * as dat from 'dat.gui';
+import * as dat from 'dat.gui'
 
 window.addEventListener('DOMContentLoaded', init);
 
