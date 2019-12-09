@@ -28,7 +28,7 @@ dat.GUI
 
 ## 作品
 #### github-page
-https://marina1017.github.io/2019-creative-code-sketch/src/03-particle/
+https://marina1017.github.io/2019-creative-code-sketch/sketches/03-particle/
 
 ### コード
 https://github.com/marina1017/2019-creative-code-sketch/tree/master/src/03-particle

@@ -13,7 +13,8 @@
     "05": "parcel src/05-movie/index.html --no-hmr --port 1234 --out-dir sketches/05-movie --public-url ./ --no-source-maps",
     "d05": "parcel src/05-movie/index.html",
     "d06": "parcel src/06-logo/index.html",
-    "d07": "parcel src/07-camera/index.html"
+    "d07": "parcel src/07-camera/index.html",
+    "07": "parcel src/07-camera/index.html --no-hmr --port 1234 --out-dir sketches/07-camera --public-url ./ --no-source-maps"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
