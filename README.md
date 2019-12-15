@@ -206,3 +206,17 @@ https://marina1017.github.io/2019-creative-code-sketch/sketches/07-camera/
 
 ## コード
 https://github.com/marina1017/2019-creative-code-sketch/tree/master/src/07-camera
+
+## 第８回　フリー
+とりあえずBlenderで四角を作ってモデルの読み込みができるかを試した
+
+## 作品
+https://marina1017.github.io/2019-creative-code-sketch/sketches/08-free/
+
+## コメント
+BlenderのUIが変わりすぎて浦島太郎状態になった(いつのまにかオシャンになってしまっていた・・・)。
+ショートカットもすべて頭から吹き飛んでしまっているので思い出していきたい。
+Parcelでjsから画像とかモデルを読み込めない問題で手詰まりをよくする(クロスドメイン制約も・・・)。しょうがないので確認するたびにgithubで確認している
+正直だるい。なんとかならないものでしょうか。みなさんどうしてるいんですか？
+だれか、parcelでビルド(？)したときに、モデルに勝手につけられる名前を知る方法を教えてほしいです・・・・・・・・・・
+いまのところ、画像や動画の場合はhtmlで事前に読み込ませておいて、jsで割り当てられた名前を取得してパスを通しているが、daeやjsonファイルの場合は本当にどうすればいいのかわからなかった。
