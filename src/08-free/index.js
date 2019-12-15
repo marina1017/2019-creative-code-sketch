@@ -61,7 +61,7 @@ function init() {
   camera.position.set(0, 0, 50);
 
   // マウスの動きに合わせる
-  var controls = new OrbitControls(camera);
+  //var controls = new OrbitControls(camera);
 
   scene.add(camera);
   //---------------------
@@ -149,7 +149,7 @@ function init() {
     }
 
     // マウスでカメラを操作するため
-    controls.update();
+    //controls.update();
     //リピートするのに必要
     requestAnimationFrame(render);
     //シーンとカメラをいれる。

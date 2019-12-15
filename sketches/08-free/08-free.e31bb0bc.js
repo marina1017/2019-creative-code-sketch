@@ -44588,8 +44588,8 @@ function init() {
 
   var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
   camera.position.set(0, 0, 50); // マウスの動きに合わせる
+  //var controls = new OrbitControls(camera);
 
-  var controls = new _threeOrbitcontrols.default(camera);
   scene.add(camera); //---------------------
   //オブジェクト---------------
 
@@ -44675,9 +44675,9 @@ function init() {
         model.rotation.z += getRadian(1);
       }
     } // マウスでカメラを操作するため
+    //controls.update();
+    //リピートするのに必要
 
-
-    controls.update(); //リピートするのに必要
 
     requestAnimationFrame(render); //シーンとカメラをいれる。
 
