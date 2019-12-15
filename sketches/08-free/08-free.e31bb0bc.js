@@ -44685,5 +44685,9 @@ function init() {
   }
 
   render(); //---------------------
+
+  function getRadian(kakudo) {
+    return kakudo * Math.PI / 180;
+  }
 }
 },{"three":"../../node_modules/three/build/three.module.js","three-orbitcontrols":"../../node_modules/three-orbitcontrols/OrbitControls.js","three-collada-loader":"../../node_modules/three-collada-loader/index.js","dat.gui":"../../node_modules/dat.gui/build/dat.gui.module.js"}]},{},["index.js"], null)

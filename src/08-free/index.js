@@ -158,4 +158,8 @@ function init() {
 
   render();
   //---------------------
+
+  function getRadian(kakudo) {
+    return kakudo * Math.PI / 180;
+  }
 }
