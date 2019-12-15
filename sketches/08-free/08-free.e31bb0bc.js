@@ -45323,30 +45323,71 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
+  // 基本設定---------------
+  // 画面サイズ設定
+  var width = window.innerWidth;
+  var height = window.innerHeight - 200; //設定
+
+  var isRotateX = false;
+  var isRotateY = false;
+  var isRotateZ = false; //HTMLで設定した周り
+
+  var xrotateElement = document.getElementById('xrotate');
+
+  xrotateElement.onclick = function () {
+    isRotateX = !isRotateX;
+  };
+
+  var yrotateElement = document.getElementById('yrotate');
+
+  yrotateElement.onclick = function () {
+    isRotateY = !isRotateY;
+  };
+
+  var zrotateElement = document.getElementById('zrotate');
+
+  zrotateElement.onclick = function () {
+    isRotateZ = !isRotateZ;
+  };
+
+  document.getElementById('white-bg').onclick = function () {
+    scene.background = new THREE.Color(0xFFFFFF);
+  };
+
+  document.getElementById('black-bg').onclick = function () {
+    scene.background = new THREE.Color(0x000000);
+  };
+
+  document.getElementById('green-bg').onclick = function () {
+    scene.background = new THREE.Color(0x00FF00);
+  }; //---------------------
   // シーン---------------
+
+
   var scene = new THREE.Scene(); //---------------------
   // レンダラー---------------
+  //html から id が myCanvas である canvas タグを JavaScript で取得し、 レンダラーに設定する
 
-  var renderer = new THREE.WebGLRenderer(); // レンダラーが描画するキャンバスサイズの設定
+  var renderer = new THREE.WebGLRenderer({
+    canvas: document.querySelector('#myCanvas')
+  }); // レンダラーが描画するキャンバスサイズの設定
 
-  renderer.setSize(window.innerWidth, window.innerHeight); // キャンバスをDOMツリーに追加
-
-  document.body.appendChild(renderer.domElement); //---------------------
+  renderer.setSize(width, height); //---------------------
   // カメラ---------------
 
-  var camera = new THREE.PerspectiveCamera(15, window.innerWidth / window.innerHeight);
-  camera.position.set(0, 0, 50);
+  var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+  camera.position.set(0, 0, 50); // マウスの動きに合わせる
+
+  var controls = new _threeOrbitcontrols.default(camera);
   scene.add(camera); //---------------------
   //オブジェクト---------------
-  //const geometry = new THREE.BoxGeometry(1, 1, 1);
-  // Collada 形式のモデルデータを読み込む
 
-  var loader = new _threeColladaLoader.default();
-  console.log(loader); // dae ファイルのパスを指定
+  var model; // Collada 形式のモデルデータを読み込む
+
+  var loader = new _threeColladaLoader.default(); // dae ファイルのパスを指定
 
   loader.load('test.dae', function (collada) {
-    var model = collada.scene;
-    console.log(model);
+    model = collada.scene;
     scene.add(model); // 読み込み後に3D空間に追加
   }); //---------------------
   // マテリアル---------------
@@ -45358,9 +45399,6 @@ function init() {
   //const cube = new THREE.Mesh(geometry, material);
   //scene.add(cube);
   //---------------------
-  // マウス---------------
-
-  var controls = new _threeOrbitcontrols.default(camera, renderer.domElement); //---------------------
   // クリック---------------
   // マウスクリックイベントのリスナー登録
 
@@ -45417,7 +45455,22 @@ function init() {
 
 
   function render() {
-    // マウスでカメラを操作するため
+    //モデルの回転をコントロール
+    if (model) {
+      if (isRotateX) {
+        model.rotation.x += getRadian(1);
+      }
+
+      if (isRotateY) {
+        model.rotation.y += getRadian(1);
+      }
+
+      if (isRotateZ) {
+        model.rotation.z += getRadian(1);
+      }
+    } // マウスでカメラを操作するため
+
+
     controls.update(); //リピートするのに必要
 
     requestAnimationFrame(render); //シーンとカメラをいれる。
