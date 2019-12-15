@@ -44589,7 +44589,9 @@ function init() {
   var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
   camera.position.set(0, 0, 50); // マウスの動きに合わせる
 
-  var controls = new _threeOrbitcontrols.default(camera);
+  console.log("////renderer.domElement/////");
+  console.log(renderer.domElement); //var controls = new OrbitControls(camera, renderer.domElement);
+
   scene.add(camera); //---------------------
   //オブジェクト---------------
 
