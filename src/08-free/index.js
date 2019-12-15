@@ -2,11 +2,6 @@ import * as THREE from 'three'
 import OrbitControls from 'three-orbitcontrols'
 import ColladaLoader from 'three-collada-loader'
 import * as dat from 'dat.gui'
-// importにやたらめったらはまった 
-// 下記のPRがマージされるまではaddAttribute()を.setAttribute()に変更する必要がある
-// https://github.com/spite/THREE.MeshLine/pull/92/files
-import { MeshLine, MeshLineMaterial, } from 'three.meshline';
-import { Material } from 'three';
 
 window.addEventListener('DOMContentLoaded', init);
 
@@ -68,7 +63,6 @@ function init() {
   // マウスの動きに合わせる
   var controls = new OrbitControls(camera);
 
-
   scene.add(camera);
   //---------------------
 
@@ -82,18 +76,6 @@ function init() {
     scene.add(model); // 読み込み後に3D空間に追加
   });
   
-  //---------------------
-
-
-  // マテリアル---------------
-  const material = new THREE.MeshBasicMaterial({
-    color: 0x00ff00
-  });
-  //---------------
-
-  //Meshに追加する---------------------
-  //const cube = new THREE.Mesh(geometry, material);
-  //scene.add(cube);
   //---------------------
 
   // クリック---------------
@@ -130,7 +112,6 @@ function init() {
   folder.add( guiObj, 'Camera_y', 0, 100 ).onChange(setCameraPosition);
   folder.add( guiObj, 'Camera_z', 0, 100 ).onChange(setCameraPosition);
   folder.addColor( guiObj , 'color' ).onChange(setColor);
-  folder.add( guiObj, 'dashRatio', 0.5, 0.99).onChange(setDashRatio);
   folder.open();
 
   function setCameraPosition(){
@@ -144,19 +125,21 @@ function init() {
     var green = parseInt(code.substring(3,5), 16);
     var blue  = parseInt(code.substring(5,7), 16);
   }
-
-  function setDashRatio(){
-    material.dashRatio = guiObj.dashRatio;
-  }
   //---------------------
   
   // レンダリング---------------------
   function render(){
     //モデルの回転をコントロール
+    console.log("////model////")
+    console.log(model);
     if (model) {
+      console.log("////isRotate////")
+      console.log(isRotateX);
       if (isRotateX) {
         model.rotation.x += getRadian(1);
       }
+      console.log("////isRotate////")
+      console.log(isRotateX);
       if (isRotateY) {
         model.rotation.y += getRadian(1);
       }
