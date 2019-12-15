@@ -44590,8 +44590,8 @@ function init() {
   camera.position.set(0, 0, 50); // マウスの動きに合わせる
 
   console.log("////renderer.domElement/////");
-  console.log(renderer.domElement); //var controls = new OrbitControls(camera, renderer.domElement);
-
+  console.log(renderer.domElement);
+  var controls = new _threeOrbitcontrols.default(camera, renderer.domElement);
   scene.add(camera); //---------------------
   //オブジェクト---------------
 
