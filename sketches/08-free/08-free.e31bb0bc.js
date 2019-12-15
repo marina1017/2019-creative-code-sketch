@@ -44591,7 +44591,7 @@ function init() {
 
   console.log("////renderer.domElement/////");
   console.log(renderer.domElement);
-  var controls = new _threeOrbitcontrols.default(camera, renderer.domElement);
+  var controls = new _threeOrbitcontrols.default(camera);
   scene.add(camera); //---------------------
   //オブジェクト---------------
 

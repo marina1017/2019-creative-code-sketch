@@ -63,13 +63,13 @@ function init() {
   // マウスの動きに合わせる
   console.log("////renderer.domElement/////")
   console.log(renderer.domElement)
-  var controls = new OrbitControls(camera, renderer.domElement);
+  var controls = new OrbitControls(camera);
 
   scene.add(camera);
   //---------------------
 
   //オブジェクト---------------
-  let model;
+  var model;
   // Collada 形式のモデルデータを読み込む
   const loader = new ColladaLoader();
   // dae ファイルのパスを指定
