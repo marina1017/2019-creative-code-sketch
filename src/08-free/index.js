@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import OrbitControls from 'three-orbitcontrols'
+import ColladaLoader from 'three-collada-loader'
 import * as dat from 'dat.gui'
 // importにやたらめったらはまった 
 // 下記のPRがマージされるまではaddAttribute()を.setAttribute()に変更する必要がある
@@ -30,7 +31,17 @@ function init() {
   //---------------------
 
   //オブジェクト---------------
-  const geometry = new THREE.BoxGeometry(1, 1, 1);
+  //const geometry = new THREE.BoxGeometry(1, 1, 1);
+  // Collada 形式のモデルデータを読み込む
+  const loader = new ColladaLoader();
+  console.log(loader);
+  // dae ファイルのパスを指定
+  loader.load('test.dae', (collada) => {
+    const model = collada.scene;
+    console.log(model);
+    scene.add(model); // 読み込み後に3D空間に追加
+  });
+  
   //---------------------
 
 
@@ -41,8 +52,8 @@ function init() {
   //---------------
 
   //Meshに追加する---------------------
-  const cube = new THREE.Mesh(geometry, material);
-  scene.add(cube);
+  //const cube = new THREE.Mesh(geometry, material);
+  //scene.add(cube);
   //---------------------
 
 

@@ -15,7 +15,8 @@
     "d06": "parcel src/06-logo/index.html",
     "d07": "parcel src/07-camera/index.html",
     "07": "parcel src/07-camera/index.html --no-hmr --port 1234 --out-dir sketches/07-camera --public-url ./ --no-source-maps",
-    "d08": "parcel src/08-free/index.html"
+    "d08": "parcel src/08-free/index.html",
+    "08": "parcel src/08-free/index.html --no-hmr --port 1234 --out-dir sketches/08-free --public-url ./ --no-source-maps"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
@@ -31,6 +32,7 @@
     "three": "^0.111.0",
     "three-effectcomposer": "^0.0.1",
     "three-orbitcontrols": "^2.110.1",
+    "three-collada-loader": "^0.0.1",
     "three.js": "^0.77.1",
     "three.meshline": "^1.2.0"
   }
