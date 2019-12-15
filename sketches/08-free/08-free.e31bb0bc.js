@@ -45323,8 +45323,11 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
+  // シーン---------------
+  var scene = new THREE.Scene(); //---------------------
   // 基本設定---------------
   // 画面サイズ設定
+
   var width = window.innerWidth;
   var height = window.innerHeight - 200; //設定
 
@@ -45361,12 +45364,9 @@ function init() {
   document.getElementById('green-bg').onclick = function () {
     scene.background = new THREE.Color(0x00FF00);
   }; //---------------------
-  // シーン---------------
-
-
-  var scene = new THREE.Scene(); //---------------------
   // レンダラー---------------
   //html から id が myCanvas である canvas タグを JavaScript で取得し、 レンダラーに設定する
+
 
   var renderer = new THREE.WebGLRenderer({
     canvas: document.querySelector('#myCanvas')

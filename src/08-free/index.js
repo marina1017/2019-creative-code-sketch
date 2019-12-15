@@ -12,6 +12,10 @@ window.addEventListener('DOMContentLoaded', init);
 
 
 function init() {
+  // シーン---------------
+  var scene = new THREE.Scene();
+  //---------------------
+
   // 基本設定---------------
   // 画面サイズ設定
   const width = window.innerWidth;
@@ -45,10 +49,6 @@ function init() {
   document.getElementById('green-bg').onclick = function() {
     scene.background = new THREE.Color(0x00FF00);
   }
-  //---------------------
-
-  // シーン---------------
-  var scene = new THREE.Scene();
   //---------------------
 
   // レンダラー---------------
