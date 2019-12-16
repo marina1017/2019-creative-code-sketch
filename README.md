@@ -220,3 +220,10 @@ Parcelでjsから画像とかモデルを読み込めない問題で手詰まり
 正直だるい。なんとかならないものでしょうか。みなさんどうしてるいんですか？
 だれか、parcelでビルド(？)したときに、モデルに勝手につけられる名前を知る方法を教えてほしいです・・・・・・・・・・
 いまのところ、画像や動画の場合はhtmlで事前に読み込ませておいて、jsで割り当てられた名前を取得してパスを通しているが、daeやjsonファイルの場合は本当にどうすればいいのかわからなかった。
+
+## 第９回 ３Dモデル
+### コード
+https://github.com/marina1017/2019-creative-code-sketch/tree/master/src/09-3Dmodel
+
+### 仕上がり
+https://marina1017.github.io/2019-creative-code-sketch/src/09-3Dmodel/

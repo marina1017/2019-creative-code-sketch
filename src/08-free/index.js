@@ -61,7 +61,7 @@ function init() {
   camera.position.set(0, 0, 50);
 
   // マウスの動きに合わせる
-  //var controls = new OrbitControls(camera);
+  var controls = new OrbitControls(camera, renderer.domElement);
 
   scene.add(camera);
   //---------------------
@@ -101,7 +101,6 @@ function init() {
     this.Camera_x = 0;
     this.Camera_y = 0;
     this.Camera_z = 100;
-    this.color = "#26a01e";
     this.dashRatio = 0.985
   };
 
@@ -111,7 +110,6 @@ function init() {
   folder.add( guiObj, 'Camera_x', 0, 100 ).onChange(setCameraPosition);
   folder.add( guiObj, 'Camera_y', 0, 100 ).onChange(setCameraPosition);
   folder.add( guiObj, 'Camera_z', 0, 100 ).onChange(setCameraPosition);
-  folder.addColor( guiObj , 'color' ).onChange(setColor);
   folder.open();
 
   function setCameraPosition(){
@@ -149,7 +147,7 @@ function init() {
     }
 
     // マウスでカメラを操作するため
-    //controls.update();
+    controls.update();
     //リピートするのに必要
     requestAnimationFrame(render);
     //シーンとカメラをいれる。
