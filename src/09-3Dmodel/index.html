@@ -25,19 +25,19 @@
 		<a href="http://www.nicovideo.jp/watch/sm13147122" target="_blank" rel="noopener">Dance Data</a>
 		</div>
 
-		<script src="./js/ammo.js"></script>
+		<script src="js/libs/ammo.js"></script>
 
 		<script type="module">
 
-			import * as THREE from './js/three.module.js';
+			import * as THREE from '../build/three.module.js';
 
-			import Stats from './js/stats.module.js';
-			import { GUI } from './js/dat.gui.module.js';
+			import Stats from './jsm/libs/stats.module.js';
+			import { GUI } from './jsm/libs/dat.gui.module.js';
 
-			import { OrbitControls } from './js/OrbitControls.js';
-			import { OutlineEffect } from './js/OutlineEffect.js';
-			import { MMDLoader } from './js/MMDLoader.js';
-			import { MMDAnimationHelper } from './js/MMDAnimationHelper.js';
+			import { OrbitControls } from './jsm/controls/OrbitControls.js';
+			import { OutlineEffect } from './jsm/effects/OutlineEffect.js';
+			import { MMDLoader } from './jsm/loaders/MMDLoader.js';
+			import { MMDAnimationHelper } from './jsm/animation/MMDAnimationHelper.js';
 
 			var container, stats;
 
@@ -108,8 +108,8 @@
 				}
 
 
-				var modelFile = 'model/alicia/Alicia_solid.pmx';
-				var vmdFiles = [ 'model/motion/loop_step1.vmd' ];
+				var modelFile = 'models/mmd/miku/miku_v2.pmd';
+				var vmdFiles = [ 'models/mmd/vmds/wavefile_v2.vmd' ];
 
 				helper = new MMDAnimationHelper( {
 					afterglow: 2.0
