@@ -1,3 +1,28 @@
+# 環境構築
+## 必要なもの
+yarn
+
+## コマンド
+### 依存しているライブラリのインストール
+yarn
+
+### ビルドするとき
+package.jsonに設定しているように、それぞれの作品ごとにビルドできるようにしてある。
+#### デバッグ時
+
+`yarn d08`
+のようにコマンドを叩くと、Parcelがいい感じにローカルサーバーをたてて確認できる。
+
+#### 作り終わったら
+`yarn 08`
+のようにコマンドを叩くと,sketches配下に出力されるように設定してある。
+
+#### 作品群
+github pagesで公開している。
+`https://marina1017.github.io/2019-creative-code-sketch/sketches/03-particle/`
+のようにそれぞれのディレクトリ配下においている。
+
+
 # 作ったもの
 
 ## 第二回 色
@@ -230,7 +255,30 @@ https://github.com/marina1017/2019-creative-code-sketch/tree/master/src/09-3Dmod
 
 ### 仕上がり
 https://marina1017.github.io/2019-creative-code-sketch/src/09-3Dmodel/
+https://marina1017.github.io/2019-creative-code-sketch/src/09-MMD/
 
 ### 困ったこと
 exampleが古いのと、exampleにのってる必要なjsファイルをのっけてもビルドできないなどいろいろ問題があって苦戦した。
+とてもつらい・・・・
 https://www.autumn-color.com/archives/2048
+
+
+ようやく動くサンプルをみつけられたがprcelでビルドすると動かせない・・・・
+https://www.autumn-color.com/archives/2048
+
+#### エラー内容
+Uncaught ReferenceError: regeneratorRuntime is not defined
+Async/Await構文がparcelでうまいこと変換できないぽい(多分・・・・)
+
+
+#### 解決方法?
+.babelrcを設定すればいいらしいので.babelrcをpacakge.jsonと同じ階層にいれてみたが、かわらない
+だれか解決方法を知っている人ぜひおしえてほしい
+というかbabelってなに・・・・という感じ
+https://takamints.hatenablog.jp/entry/not-to-convert-async-function-with-parcel
+
+しょうがないのでlive-serverをつかって開発をすすめた
+
+```
+live-server ./
+```
