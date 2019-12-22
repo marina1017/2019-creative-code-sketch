@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		9C6D1E2423AFA2CB00C1EEF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6D1E2323AFA2CB00C1EEF9 /* AppDelegate.swift */; };
 		9C6D1E2623AFA2CB00C1EEF9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6D1E2523AFA2CB00C1EEF9 /* SceneDelegate.swift */; };
-		9C6D1E2823AFA2CB00C1EEF9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6D1E2723AFA2CB00C1EEF9 /* ViewController.swift */; };
-		9C6D1E2B23AFA2CB00C1EEF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C6D1E2923AFA2CB00C1EEF9 /* Main.storyboard */; };
+		9C6D1E2823AFA2CB00C1EEF9 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6D1E2723AFA2CB00C1EEF9 /* ARViewController.swift */; };
 		9C6D1E2D23AFA2CC00C1EEF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C6D1E2C23AFA2CC00C1EEF9 /* Assets.xcassets */; };
 		9C6D1E3023AFA2CC00C1EEF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C6D1E2E23AFA2CC00C1EEF9 /* LaunchScreen.storyboard */; };
 		9C6D1E3B23AFA2CD00C1EEF9 /* _9_ARtestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6D1E3A23AFA2CD00C1EEF9 /* _9_ARtestTests.swift */; };
 		9C6D1E4623AFA2CD00C1EEF9 /* _9_ARtestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6D1E4523AFA2CD00C1EEF9 /* _9_ARtestUITests.swift */; };
+		9C6D1E5423AFA52F00C1EEF9 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C6D1E5323AFA52F00C1EEF9 /* art.scnassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,8 +38,7 @@
 		9C6D1E2023AFA2CB00C1EEF9 /* 09-ARtest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "09-ARtest.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C6D1E2323AFA2CB00C1EEF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C6D1E2523AFA2CB00C1EEF9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9C6D1E2723AFA2CB00C1EEF9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		9C6D1E2A23AFA2CB00C1EEF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9C6D1E2723AFA2CB00C1EEF9 /* ARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
 		9C6D1E2C23AFA2CC00C1EEF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C6D1E2F23AFA2CC00C1EEF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9C6D1E3123AFA2CC00C1EEF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +48,7 @@
 		9C6D1E4123AFA2CD00C1EEF9 /* 09-ARtestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "09-ARtestUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C6D1E4523AFA2CD00C1EEF9 /* _9_ARtestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _9_ARtestUITests.swift; sourceTree = "<group>"; };
 		9C6D1E4723AFA2CD00C1EEF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C6D1E5323AFA52F00C1EEF9 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +101,8 @@
 			children = (
 				9C6D1E2323AFA2CB00C1EEF9 /* AppDelegate.swift */,
 				9C6D1E2523AFA2CB00C1EEF9 /* SceneDelegate.swift */,
-				9C6D1E2723AFA2CB00C1EEF9 /* ViewController.swift */,
-				9C6D1E2923AFA2CB00C1EEF9 /* Main.storyboard */,
+				9C6D1E2723AFA2CB00C1EEF9 /* ARViewController.swift */,
+				9C6D1E5323AFA52F00C1EEF9 /* art.scnassets */,
 				9C6D1E2C23AFA2CC00C1EEF9 /* Assets.xcassets */,
 				9C6D1E2E23AFA2CC00C1EEF9 /* LaunchScreen.storyboard */,
 				9C6D1E3123AFA2CC00C1EEF9 /* Info.plist */,
@@ -233,8 +233,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C6D1E3023AFA2CC00C1EEF9 /* LaunchScreen.storyboard in Resources */,
+				9C6D1E5423AFA52F00C1EEF9 /* art.scnassets in Resources */,
 				9C6D1E2D23AFA2CC00C1EEF9 /* Assets.xcassets in Resources */,
-				9C6D1E2B23AFA2CB00C1EEF9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C6D1E2823AFA2CB00C1EEF9 /* ViewController.swift in Sources */,
+				9C6D1E2823AFA2CB00C1EEF9 /* ARViewController.swift in Sources */,
 				9C6D1E2423AFA2CB00C1EEF9 /* AppDelegate.swift in Sources */,
 				9C6D1E2623AFA2CB00C1EEF9 /* SceneDelegate.swift in Sources */,
 			);
@@ -297,14 +297,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		9C6D1E2923AFA2CB00C1EEF9 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9C6D1E2A23AFA2CB00C1EEF9 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		9C6D1E2E23AFA2CC00C1EEF9 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -435,6 +427,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 78Q29B3V8M;
 				INFOPLIST_FILE = "09-ARtest/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -452,6 +445,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 78Q29B3V8M;
 				INFOPLIST_FILE = "09-ARtest/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
