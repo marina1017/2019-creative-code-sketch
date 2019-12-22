@@ -210,8 +210,11 @@ https://github.com/marina1017/2019-creative-code-sketch/tree/master/src/07-camer
 ## 第８回　フリー
 とりあえずBlenderで四角を作ってモデルの読み込みができるかを試した
 
-## 作品
+### 作品
 https://marina1017.github.io/2019-creative-code-sketch/sketches/08-free/
+
+### コード
+https://github.com/marina1017/2019-creative-code-sketch/tree/master/src/08-free/
 
 ## コメント
 BlenderのUIが変わりすぎて浦島太郎状態になった(いつのまにかオシャンになってしまっていた・・・)。
@@ -227,3 +230,7 @@ https://github.com/marina1017/2019-creative-code-sketch/tree/master/src/09-3Dmod
 
 ### 仕上がり
 https://marina1017.github.io/2019-creative-code-sketch/src/09-3Dmodel/
+
+### 困ったこと
+exampleが古いのと、exampleにのってる必要なjsファイルをのっけてもビルドできないなどいろいろ問題があって苦戦した。
+https://www.autumn-color.com/archives/2048

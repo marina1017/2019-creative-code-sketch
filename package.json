@@ -18,7 +18,9 @@
     "d08": "parcel src/08-free/index.html",
     "08": "parcel src/08-free/index.html --no-hmr --port 1234 --out-dir sketches/08-free --public-url ./ --no-source-maps",
     "d09": "parcel src/09-3Dmodel/index.html",
-    "09": "parcel src/09-3Dmodel/index.html --no-hmr --port 1234 --out-dir sketches/09-3Dmodel --public-url ./ --no-source-maps"
+    "09": "parcel src/09-3Dmodel/index.html --no-hmr --port 1234 --out-dir sketches/09-3Dmodel --public-url ./ --no-source-maps",
+    "d09_1": "parcel src/09-MMD/index.html",
+    "09_1": "parcel src/09-MMD/index.html --no-hmr --port 1234 --out-dir sketches/09-MMD --public-url ./ --no-source-maps"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
@@ -35,6 +37,7 @@
     "three-effectcomposer": "^0.0.1",
     "three-orbitcontrols": "^2.110.1",
     "three-collada-loader": "^0.0.1",
+    "three-mmd-loader": "^0.0.11",
     "three.js": "^0.77.1",
     "three.meshline": "^1.2.0"
   }
