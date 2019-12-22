@@ -13,7 +13,7 @@ const clock = new THREE.Clock();
 const Pmx = "./pmx/alicia/Alicia_solid.pmx";
 const MotionObjects = [
   { id: "loop", VmdClip: null, AudioClip: false },
-  { id: "kei2_voice_009", VmdClip: null, AudioClip: true },
+  { id: "step1", VmdClip: null, AudioClip: true },
   { id: "kei2_voice_010", VmdClip: null, AudioClip: true },
 ];
 
@@ -26,30 +26,36 @@ window.onload = () => {
 }
 
 /*
- * Initialize Three
- * camera and right
+ * シーンとライトとカメラとレンダラーを設定
  */
 Init = () => {
+  // シーン---------------
   scene = new THREE.Scene();
+  // ---------------
 
+  // ライト---------------
   const ambient = new THREE.AmbientLight(0xeeeeee);
   scene.add(ambient);
+  // ---------------
 
+  // レンダラー---------------
   renderer = new THREE.WebGLRenderer({ alpha: true });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setClearColor(0xcccccc, 0);
+  // ---------------
 
   // documentにMMDをセットする
   document.body.appendChild(renderer.domElement);
 
-  //cameraの作成
+  // カメラ---------------
   camera = new THREE.PerspectiveCamera(40, windowWidth / windowHeight, 1, 1000);
   camera.position.set(0, 18, 10);
+  // ---------------
 }
 
 /*
- * Load PMX and VMD and Audio
+ *  PMX と VMD と Audioロードする
  */
 LoadModeler = async () => {
   const loader = new THREE.MMDLoader();
@@ -120,8 +126,7 @@ LoadModeler = async () => {
 }
 
 /*
- * Start Vmd and Audio.
- * And, Get Vmd Loop Event
+ * Vmdを読み込む
  */
 VmdControl = (id, loop) => {
   const index = MotionObjects.findIndex(MotionObject => MotionObject.id == id);
@@ -199,7 +204,7 @@ Render = () => {
 }
 
 /*
- * Click Event
+ * HTMLでセットしたボタンの内容からどのvmdを読み込むか決める
  */
 PoseClickEvent = (id) => {
   switch (id) {
@@ -208,7 +213,7 @@ PoseClickEvent = (id) => {
       break;
 
     case "pose2":
-      VmdControl("kei2_voice_009", false);
+      VmdControl("step1", true);
       break;
 
     case "pose3":
