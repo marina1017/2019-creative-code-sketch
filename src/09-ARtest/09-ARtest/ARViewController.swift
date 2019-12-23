@@ -13,25 +13,34 @@ import ARKit
 class ARViewController: UIViewController {
     //ARKit関連の機能をとりあつかいつつ、UIKitベースのUI階層内で三次元シーンを描画するためのクラス
     var sceneView: ARSCNView!
+    
+    private var virtualObjectNode: SCNNode!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         self.sceneView = ARSCNView()
+        // シーンを生成してARSCNViewにセット
+        self.sceneView.scene = SCNScene()
+        // 仮想オブジェクトのノードを作成
+        self.virtualObjectNode = self.loadModel()
+        self.sceneView.session.delegate = self
         self.sceneView.delegate = self
+        
+        
         self.view.addSubview(self.sceneView)
         self.sceneView.frame = view.frame
         self.sceneView.translatesAutoresizingMaskIntoConstraints = false
         // シーンを生成してARSCNViewにセット
-        self.sceneView.scene = SCNScene(named: "art.scnassets/ship.scn")!
+        //self.sceneView.scene = SCNScene(named: "art.scnassets/ship.scn")!
         //self.sceneView.scene = SCNScene(named: "art.scnassets/Raikou/model.scn")!
 
         // セッションのコンフィギュレーションを生成
         let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = [.horizontal, .vertical]
+        configuration.planeDetection = .horizontal
         
         // セッション開始
         self.sceneView.session.run(configuration)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +48,18 @@ class ARViewController: UIViewController {
         //SafeAreaができたら制約をかける
         self.constraints()
         
+    }
+    
+    func loadModel() -> SCNNode {
+        //guard let scene = SCNScene(named: "art.scnassets/ship.scn") else {fatalError()}
+        //guard let scene = SCNScene(named: "art.scnassets/Raikou/model.scn") else {fatalError()}
+        guard let scene = SCNScene(named: "art.scnassets/cgaxis_models_volume_39_08_obj/cgaxis_models_39_08.scn") else {fatalError()}
+            
+        let modelNode = SCNNode()
+        for child in scene.rootNode.childNodes {
+            modelNode.addChildNode(child)
+        }
+        return modelNode
     }
 
     func constraints() {
@@ -50,12 +71,11 @@ class ARViewController: UIViewController {
         self.sceneView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1).isActive = true
         // redViewの親ビューの幅
         self.sceneView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1).isActive = true
-        
     }
 
 }
 
-extension ARViewController: ARSCNViewDelegate {
+extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
     
     // 新しいアンカーに対応するノードがシーンに追加された
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
@@ -76,7 +96,7 @@ extension ARViewController: ARSCNViewDelegate {
         
         DispatchQueue.main.async{
             //検出したアンカーに対応するノードに子ノードとしてもたせる
-            node.addChildNode(planeNode)
+            node.addChildNode(self.virtualObjectNode)
         }
         
         // 平面ジオメトリを持つノードを作成し、
@@ -92,9 +112,7 @@ extension ARViewController: ARSCNViewDelegate {
     
     // 削除されたアンカーに対応するノードがシーンから削除された
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
-//        print("\(self.classForCoder)/" + #function)
-//        guard let planeAnchor = anchor as? ARPlaneAnchor else {fatalError()}
-//        planeAnchor.findPlaneNode(on: node).removeFromParentNode()
+        print("\(self.classForCoder)/" + #function)
     }
 }
 
