@@ -282,3 +282,12 @@ https://takamints.hatenablog.jp/entry/not-to-convert-async-function-with-parcel
 ```
 live-server ./
 ```
+
+## SwiftでARKit
+iOS13にSceneDelegate.swiftが存在していて対応方法探すのにじかんかかった
+
+https://qiita.com/edasan/items/68cbe9ab63d48ee71594
+
+### とりあえずモデルを出す
+
+### 平面検出→平面にモデルを乗せる

@@ -22,6 +22,25 @@ class ARViewController: UIViewController {
         self.sceneView = ARSCNView()
         // シーンを生成してARSCNViewにセット
         self.sceneView.scene = SCNScene()
+        // ライトをセット
+        let omniLight = SCNLight()
+        omniLight.type = .omni
+        omniLight.intensity = 0
+        omniLight.temperature = 0
+        omniLight.castsShadow = true
+        
+        let omniLightNode = SCNNode()
+        omniLightNode.light = omniLight
+        omniLightNode.position = SCNVector3(0,10,1)
+        self.sceneView.scene.rootNode.addChildNode(omniLightNode)
+        
+        // Setup Ambient Light
+        let ambientLight = SCNLight()
+        ambientLight.type = .ambient
+        ambientLight.intensity = 0
+        ambientLight.temperature = 0
+        self.sceneView.scene.rootNode.light = ambientLight
+        
         // 仮想オブジェクトのノードを作成
         self.virtualObjectNode = self.loadModel()
         self.sceneView.session.delegate = self
