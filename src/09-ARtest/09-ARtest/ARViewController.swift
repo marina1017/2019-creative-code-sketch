@@ -22,27 +22,33 @@ class ARViewController: UIViewController {
         self.sceneView = ARSCNView()
         // シーンを生成してARSCNViewにセット
         self.sceneView.scene = SCNScene()
-        // ライトをセット
-        let omniLight = SCNLight()
-        omniLight.type = .omni
-        omniLight.intensity = 0
-        omniLight.temperature = 0
-        omniLight.castsShadow = true
-        
-        let omniLightNode = SCNNode()
-        omniLightNode.light = omniLight
-        omniLightNode.position = SCNVector3(0,10,1)
-        self.sceneView.scene.rootNode.addChildNode(omniLightNode)
-        
-        // Setup Ambient Light
-        let ambientLight = SCNLight()
-        ambientLight.type = .ambient
-        ambientLight.intensity = 0
-        ambientLight.temperature = 0
-        self.sceneView.scene.rootNode.light = ambientLight
+//        // ライトをセット
+//        let omniLight = SCNLight()
+//        omniLight.type = .omni
+//        omniLight.intensity = 0
+//        omniLight.temperature = 0
+//        omniLight.castsShadow = true
+//        
+//        let omniLightNode = SCNNode()
+//        omniLightNode.light = omniLight
+//        omniLightNode.position = SCNVector3(0,10,1)
+//        self.sceneView.scene.rootNode.addChildNode(omniLightNode)
+//        
+//        // Setup Ambient Light
+//        let ambientLight = SCNLight()
+//        ambientLight.type = .ambient
+//        ambientLight.intensity = 0
+//        ambientLight.temperature = 0
+//        self.sceneView.scene.rootNode.light = ambientLight
         
         // 仮想オブジェクトのノードを作成
-        self.virtualObjectNode = self.loadModel()
+        //self.virtualObjectNode = self.loadModel()
+        guard let scene = SCNScene(named: "art.scnassets/ship.scn") else {fatalError()}
+        virtualObjectNode = SCNNode()
+        for child in scene.rootNode.childNodes {
+            virtualObjectNode.addChildNode(child)
+        }
+        
         self.sceneView.session.delegate = self
         self.sceneView.delegate = self
         
@@ -50,15 +56,13 @@ class ARViewController: UIViewController {
         self.view.addSubview(self.sceneView)
         self.sceneView.frame = view.frame
         self.sceneView.translatesAutoresizingMaskIntoConstraints = false
-        // シーンを生成してARSCNViewにセット
-        //self.sceneView.scene = SCNScene(named: "art.scnassets/ship.scn")!
-        //self.sceneView.scene = SCNScene(named: "art.scnassets/Raikou/model.scn")!
 
-        // セッションのコンフィギュレーションを生成
+        // セッションのコンフィギュレーションを生成(水平面を検出する)
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
         
-        // セッション開始
+        // セッション開始(このconfigurationをrunにわたす)
+        //　そのセッションが有効なあいだはARKitはその平面を検出し続け更新し続ける
         self.sceneView.session.run(configuration)
     }
     
@@ -70,9 +74,7 @@ class ARViewController: UIViewController {
     }
     
     func loadModel() -> SCNNode {
-        //guard let scene = SCNScene(named: "art.scnassets/ship.scn") else {fatalError()}
-        //guard let scene = SCNScene(named: "art.scnassets/Raikou/model.scn") else {fatalError()}
-        guard let scene = SCNScene(named: "art.scnassets/cgaxis_models_volume_39_08_obj/cgaxis_models_39_08.scn") else {fatalError()}
+        guard let scene = SCNScene(named: "art.scnassets/ship.scn") else {fatalError()}
             
         let modelNode = SCNNode()
         for child in scene.rootNode.childNodes {
@@ -101,7 +103,7 @@ extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
         print("anchor:\(anchor), node: \(node), node geometry: \(String(describing: node.geometry))")
         guard let planeAnchor = anchor as? ARPlaneAnchor else { fatalError() }
         // アライメントによって色をわける
-        let color: UIColor = planeAnchor.alignment == .horizontal ? UIColor.yellow : UIColor.blue
+        let _: UIColor = planeAnchor.alignment == .horizontal ? UIColor.yellow : UIColor.blue
         
         //平面ジオメトリを作成
         let geometry = SCNPlane(width: CGFloat(planeAnchor.extent.x),
@@ -115,7 +117,8 @@ extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
         
         DispatchQueue.main.async{
             //検出したアンカーに対応するノードに子ノードとしてもたせる
-            node.addChildNode(self.virtualObjectNode)
+            //node.addChildNode(self.virtualObjectNode)
+            node.addChildNode(planeNode)
         }
         
         // 平面ジオメトリを持つノードを作成し、
