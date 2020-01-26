@@ -12,8 +12,6 @@
 		9C6D1E2823AFA2CB00C1EEF9 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6D1E2723AFA2CB00C1EEF9 /* ARViewController.swift */; };
 		9C6D1E2D23AFA2CC00C1EEF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C6D1E2C23AFA2CC00C1EEF9 /* Assets.xcassets */; };
 		9C6D1E3023AFA2CC00C1EEF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C6D1E2E23AFA2CC00C1EEF9 /* LaunchScreen.storyboard */; };
-		9C6D1E3B23AFA2CD00C1EEF9 /* _9_ARtestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6D1E3A23AFA2CD00C1EEF9 /* _9_ARtestTests.swift */; };
-		9C6D1E4623AFA2CD00C1EEF9 /* _9_ARtestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6D1E4523AFA2CD00C1EEF9 /* _9_ARtestUITests.swift */; };
 		9C6D1E5423AFA52F00C1EEF9 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C6D1E5323AFA52F00C1EEF9 /* art.scnassets */; };
 /* End PBXBuildFile section */
 
@@ -43,11 +41,7 @@
 		9C6D1E2F23AFA2CC00C1EEF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9C6D1E3123AFA2CC00C1EEF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C6D1E3623AFA2CD00C1EEF9 /* 09-ARtestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "09-ARtestTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9C6D1E3A23AFA2CD00C1EEF9 /* _9_ARtestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _9_ARtestTests.swift; sourceTree = "<group>"; };
-		9C6D1E3C23AFA2CD00C1EEF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C6D1E4123AFA2CD00C1EEF9 /* 09-ARtestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "09-ARtestUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9C6D1E4523AFA2CD00C1EEF9 /* _9_ARtestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _9_ARtestUITests.swift; sourceTree = "<group>"; };
-		9C6D1E4723AFA2CD00C1EEF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C6D1E5323AFA52F00C1EEF9 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,8 +74,6 @@
 			isa = PBXGroup;
 			children = (
 				9C6D1E2223AFA2CB00C1EEF9 /* 09-ARtest */,
-				9C6D1E3923AFA2CD00C1EEF9 /* 09-ARtestTests */,
-				9C6D1E4423AFA2CD00C1EEF9 /* 09-ARtestUITests */,
 				9C6D1E2123AFA2CB00C1EEF9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -108,24 +100,6 @@
 				9C6D1E3123AFA2CC00C1EEF9 /* Info.plist */,
 			);
 			path = "09-ARtest";
-			sourceTree = "<group>";
-		};
-		9C6D1E3923AFA2CD00C1EEF9 /* 09-ARtestTests */ = {
-			isa = PBXGroup;
-			children = (
-				9C6D1E3A23AFA2CD00C1EEF9 /* _9_ARtestTests.swift */,
-				9C6D1E3C23AFA2CD00C1EEF9 /* Info.plist */,
-			);
-			path = "09-ARtestTests";
-			sourceTree = "<group>";
-		};
-		9C6D1E4423AFA2CD00C1EEF9 /* 09-ARtestUITests */ = {
-			isa = PBXGroup;
-			children = (
-				9C6D1E4523AFA2CD00C1EEF9 /* _9_ARtestUITests.swift */,
-				9C6D1E4723AFA2CD00C1EEF9 /* Info.plist */,
-			);
-			path = "09-ARtestUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,7 +243,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C6D1E3B23AFA2CD00C1EEF9 /* _9_ARtestTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,7 +250,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C6D1E4623AFA2CD00C1EEF9 /* _9_ARtestUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
