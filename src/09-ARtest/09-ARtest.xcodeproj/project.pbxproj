@@ -13,6 +13,7 @@
 		9C6D1E2D23AFA2CC00C1EEF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C6D1E2C23AFA2CC00C1EEF9 /* Assets.xcassets */; };
 		9C6D1E3023AFA2CC00C1EEF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C6D1E2E23AFA2CC00C1EEF9 /* LaunchScreen.storyboard */; };
 		9C6D1E5423AFA52F00C1EEF9 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C6D1E5323AFA52F00C1EEF9 /* art.scnassets */; };
+		9CE853B123DDA9E6008CB33D /* TrackingState+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE853B023DDA9E6008CB33D /* TrackingState+Description.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,7 @@
 		9C6D1E3623AFA2CD00C1EEF9 /* 09-ARtestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "09-ARtestTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C6D1E4123AFA2CD00C1EEF9 /* 09-ARtestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "09-ARtestUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C6D1E5323AFA52F00C1EEF9 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		9CE853B023DDA9E6008CB33D /* TrackingState+Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingState+Description.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 		9C6D1E2223AFA2CB00C1EEF9 /* 09-ARtest */ = {
 			isa = PBXGroup;
 			children = (
+				9CE853B023DDA9E6008CB33D /* TrackingState+Description.swift */,
 				9C6D1E2323AFA2CB00C1EEF9 /* AppDelegate.swift */,
 				9C6D1E2523AFA2CB00C1EEF9 /* SceneDelegate.swift */,
 				9C6D1E2723AFA2CB00C1EEF9 /* ARViewController.swift */,
@@ -234,6 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C6D1E2823AFA2CB00C1EEF9 /* ARViewController.swift in Sources */,
+				9CE853B123DDA9E6008CB33D /* TrackingState+Description.swift in Sources */,
 				9C6D1E2423AFA2CB00C1EEF9 /* AppDelegate.swift in Sources */,
 				9C6D1E2623AFA2CB00C1EEF9 /* SceneDelegate.swift in Sources */,
 			);
