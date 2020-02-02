@@ -10,13 +10,40 @@ import UIKit
 import SceneKit
 import ARKit
 
+class ARLabel: UILabel {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor.lightGray.withAlphaComponent(0.50)
+        self.textColor = UIColor.white
+        self.font.withSize(5)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 class ARViewController: UIViewController {
-    var trackingStateLabel: UILabel = {
-        var label = UILabel()
-        label.backgroundColor = UIColor.black
-        label.textColor = UIColor.white
+    var trackingEyeLeftLabel: ARLabel = {
+        var label = ARLabel(frame: CGRect.zero)
         return label
     }()
+    
+    var trackingEyeRightLabel: ARLabel = {
+        var label = ARLabel(frame: CGRect.zero)
+        return label
+    }()
+    
+    var trackingMouthLabel: ARLabel = {
+        var label = ARLabel(frame: CGRect.zero)
+        return label
+    }()
+    
+    var trackingTongueLabel: ARLabel = {
+        var label = ARLabel(frame: CGRect.zero)
+        return label
+    }()
+    
     var wireframeSwitch: UISwitch!
     var fillMeshSwitch: UISwitch!
     
@@ -39,7 +66,10 @@ class ARViewController: UIViewController {
         self.fillMeshSwitch = UISwitch()
         self.wireframeSwitch.addTarget(self, action: #selector(wireframeSwitched), for: UIControl.Event.valueChanged)
         self.fillMeshSwitch.addTarget(self, action: #selector(fillMeshSwitched), for: UIControl.Event.valueChanged)
-        self.view.addSubview(self.trackingStateLabel)
+        self.view.addSubview(self.trackingEyeLeftLabel)
+        self.view.addSubview(self.trackingEyeRightLabel)
+        self.view.addSubview(self.trackingMouthLabel)
+        self.view.addSubview(self.trackingTongueLabel)
         self.view.addSubview(self.wireframeSwitch)
         self.view.addSubview(self.fillMeshSwitch)
         self.constraints()
@@ -82,7 +112,7 @@ class ARViewController: UIViewController {
         //ジオメトリの最初のマテリアルを決定します。 ジオメトリにマテリアルがない場合、nilを返します。
         //このメソッドは、便宜上ここにあります。 上記の「マテリアル」配列の最初のオブジェクトと同等です。
         if let material = self.faceGeometry.firstMaterial {
-            material.diffuse.contents = UIColor.green
+            material.diffuse.contents = UIColor.blue
             material.lightingModel = .physicallyBased
         }
         self.faceNode.geometry = self.faceGeometry
@@ -100,14 +130,25 @@ class ARViewController: UIViewController {
         self.sceneView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1).isActive = true
         
         
-        self.trackingStateLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.trackingStateLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-        // redViewの縦方向の中心は、親ビューの縦方向の中心と同じ
-        self.trackingStateLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-        // redViewの幅は、親ビューの幅
-        self.trackingStateLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5).isActive = true
-        // redViewの親ビューの幅
-        self.trackingStateLabel.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.05).isActive = true
+        self.trackingEyeLeftLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.trackingEyeLeftLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        self.trackingEyeLeftLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1).isActive = true
+        self.trackingEyeLeftLabel.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.05).isActive = true
+        
+        self.trackingEyeRightLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.trackingEyeRightLabel.topAnchor.constraint(equalTo: self.trackingEyeLeftLabel.bottomAnchor).isActive = true
+        self.trackingEyeRightLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1).isActive = true
+        self.trackingEyeRightLabel.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.05).isActive = true
+        
+        self.trackingMouthLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.trackingMouthLabel.topAnchor.constraint(equalTo: self.trackingEyeRightLabel.bottomAnchor).isActive = true
+        self.trackingMouthLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1).isActive = true
+        self.trackingMouthLabel.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.05).isActive = true
+        
+        self.trackingTongueLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.trackingTongueLabel.topAnchor.constraint(equalTo: self.trackingMouthLabel.bottomAnchor).isActive = true
+        self.trackingTongueLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1).isActive = true
+        self.trackingTongueLabel.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.05).isActive = true
         
         self.wireframeSwitch.translatesAutoresizingMaskIntoConstraints = false
         self.wireframeSwitch.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
@@ -129,7 +170,7 @@ extension ARViewController: ARSCNViewDelegate {
 //      @param camera追跡状態を変更したカメラ。
     func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
         print("trackingState: \(camera.trackingState)")
-        self.trackingStateLabel.text = camera.trackingState.description
+        //self.trackingEyeLeftLabel.text = camera.trackingState.description
     }
     
     // 顔が検出されたら、下記関数が実行される。新しいアンカーに対応するノードがシーンに追加された
@@ -156,6 +197,20 @@ extension ARViewController: ARSCNViewDelegate {
     // 検出済みの顔が更新されるたびに下記関数が実行される。対応するアンカーの現在の状態に合うようにノードが更新された
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let faceAnchor = anchor as? ARFaceAnchor else { return }
+        //blendShapesをつかってみる
+        let blendShapes = faceAnchor.blendShapes
+        guard let eyeBlinkLeft = blendShapes[.eyeBlinkLeft] as? Float,
+            let eyeBlinkRight = blendShapes[.eyeBlinkRight] as? Float,
+            let jawOpen = blendShapes[.jawOpen] as? Float,
+            let tongue = blendShapes[.tongueOut] as? Float
+            else { return }
+        DispatchQueue.main.async {
+            self.trackingEyeLeftLabel.text = "右目: \(String(1-eyeBlinkLeft))"
+            self.trackingEyeRightLabel.text = "右目: \(String(1-eyeBlinkRight))"
+            self.trackingMouthLabel.text = "口: \(String(jawOpen))"
+            self.trackingTongueLabel.text = "舌: \(String(tongue))"
+        }
+        
         
         self.faceGeometry.update(from: faceAnchor.geometry)
     }
