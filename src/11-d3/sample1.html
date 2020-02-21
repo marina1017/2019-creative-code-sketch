@@ -1,0 +1,17 @@
+<html>
+<head>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body style="background:#fafafa">
+  <p>1</p>
+  <p>2</p>
+  <p>3</p>
+  <p>4</p>
+  <p>5</p>
+  <script>
+   d3.selectAll("p")
+     .data([4, 8, 15, 16, 23])
+     .style("font-size", function(d) { return d + "px"; });
+  </script>
+</body>
+</html>
