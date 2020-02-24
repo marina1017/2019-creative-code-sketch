@@ -1,0 +1,34 @@
+<html>
+<head>
+  <title>d3.js sample #2 </title>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <style type="text/css">
+    #chart div {
+      font: 15px "Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体", "ヒラギノ角ゴ Pro W3", "メイリオ", sans-serif;
+      background-color: steelblue;
+      text-align: right;
+      padding: 3px;
+      margin: 1px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+ 
+  <div id="chart"></div>
+
+  <script>
+    var data = [100, 150, 200, 250, 300];
+
+   d3.select("#chart")
+       .selectAll("div")
+       .data(data)
+         .enter()
+         .append("div")
+           .style("width", function(d) { return d + "px"; })
+           .text(function(d) { return d; });
+
+  </script>
+</body>
+</html>
