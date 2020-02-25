@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>d3</title>
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style type="text/css">
+      #chart rect {
+        fill: steelblue;
+      }
+ 
+      #chart text {
+        fill: white;
+        font: 10px sans-serif;
+        text-anchor: end;
+      }
+    </style>
+  </head>
+<body>
+  <svg width="700px"></svg>
+  <script>
+    d3.select("svg").selectAll("circle") // ① svg要素を選択し、その子要素のcircle要素を全て選択
+      .data([10, 20, 30]) // ② 追加するデータ（今回は円の半径として使用）
+      .enter() // ③ 新規追加する circle要素を DOMに反映
+      .append("circle") // ④ 円を追加
+        .attr("cy", 60) // ⑤ y軸の座標
+        .attr("cx", function(d, i) { return i * 100 + 100; }) // ⑥ x軸の座標
+        .attr("r", function(d) { return d; })  // ⑦ 半径
+        .style("fill", "steelblue") // 塗りつぶす色
+  </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>d3</title>
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style type="text/css">
+      .bar {
+        fill: steelblue;
+      }
+      .axis text {
+        font: 10px sans-serif;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+ 
+    <svg id="chart"></svg>
+ 
+    <script>
+ 
+      var data = [
+        {name:"A", value:"100"},
+        {name:"B", value:"150"},
+        {name:"C", value:"200"},
+        {name:"D", value:"250"},
+        {name:"E", value:"300"}
+      ];
+ 
+      // ① グラフ全体の設定
+      // マージンの設定
+      var margin = {top: 50, right: 50, bottom: 50, left: 50};
+ 
+      // マージンを除いた描画幅を設定
+      var width = 500 - margin.left - margin.right,
+          height = 400 - margin.top - margin.bottom;
+ 
+      // グラフの全体設定
+      var chart = d3.select("#chart")
+        .attr("width", width + margin.left + margin.right) // SVG領域は、余白を含む幅
+        .attr("height", height + margin.top + margin.bottom) // SVG領域は、余白を含む高さ
+        .append("g") // 余白を適用するためのグループを作成（適用された属性は子要素に継承される）
+          .attr("transform", "translate(" + (margin.left) + "," + margin.top + ")");
+ 
+      // ② X軸の設定
+      // X軸のデータ範囲などバンドスケールを作成
+      var x = d3.scaleBand()
+          .domain(data.map(function(d) { return d.name; })) // A,B,C,D,E
+          .range([0, width]) // 描画幅
+          .padding(0.1); // グラフの間隔
+ 
+      // X軸のメモリ用グループを追加
+      var xAxis = d3.axisBottom(x);
+      chart.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + height + ")") // 左上が(0,0)。 X軸をグラフの下部に表示するには、描画領域の高さ分下げる
+          .call(xAxis); // scaleBandを設定
+ 
+      // ③ Y軸の設定
+      // Y軸のデータ範囲などリニアスケールを作成
+      var y = d3.scaleLinear()
+          .domain([0, d3.max(data, function(d) { return d.value; })]) // 0 〜 300
+          .range([height, 0]); // 最大、最小
+ 
+      // Y軸のメモリ用グループを追加
+      var yAxis = d3.axisLeft(y);
+      chart.append("g")
+          .attr("class", "y axis")
+          .call(yAxis); // scaleLinearを設定
+ 
+      // ④ 各データを描画
+      chart.selectAll(".bar")
+        .data(data) // 描画データ
+        .enter().append("rect")
+          .attr("class", "bar")
+          .attr("x", function(d) { return x(d.name); })
+          .attr("y", function(d) { return y(d.value); })
+          .attr("height", function(d) { return height - y(d.value); })
+          .attr("width", x.bandwidth());
+    </script>
+  </body>
+</html>
