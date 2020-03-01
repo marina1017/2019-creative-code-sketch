@@ -74,9 +74,21 @@
       .data(data) // 描画データ
       .enter().append("rect")
         .attr("class", "bar")
-        .attr("x", function(d) { return x(d.name); })
-        .attr("y", function(d) { return y(d.value); })
-        .attr("height", function(d) { return height - y(d.value); })
+        .attr("x", function(d) { 
+          console.log("x(d.name)")
+          console.log(x(d.name));
+          return x(d.name); 
+        })
+        .attr("y", function(d) { 
+          console.log("y(d.value)");
+          console.log(y(d.value));
+          return y(d.value); 
+        })
+        .attr("height", function(d) { 
+          console.log("height - y(d.value)")
+          console.log(height - y(d.value));
+          return height - y(d.value); 
+        })
         .attr("width", x.bandwidth());
  
     // ⑤ イベントを設定

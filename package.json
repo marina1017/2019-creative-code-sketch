@@ -20,9 +20,12 @@
     "d09": "parcel src/09-3Dmodel/index.html",
     "09": "parcel src/09-3Dmodel/index.html --no-hmr --port 1234 --out-dir sketches/09-3Dmodel --public-url ./ --no-source-maps",
     "d09_1": "parcel src/09-MMD/index.html",
-    "09_1": "parcel src/09-MMD/index.html --no-hmr --port 1234 --out-dir sketches/09-MMD --public-url ./ --no-source-maps"
+    "09_1": "parcel src/09-MMD/index.html --no-hmr --port 1234 --out-dir sketches/09-MMD --public-url ./ --no-source-maps",
+    "d12-d3graph": "parcel src/12-d3graph/index.html"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
     "parcel-bundler": "^1.12.4",
     "typescript": "^3.6.4"
   },
@@ -34,10 +37,10 @@
     "stats.js": "^0.17.0",
     "tats": "^0.1.1",
     "three": "^0.111.0",
-    "three-effectcomposer": "^0.0.1",
-    "three-orbitcontrols": "^2.110.1",
     "three-collada-loader": "^0.0.1",
+    "three-effectcomposer": "^0.0.1",
     "three-mmd-loader": "^0.0.11",
+    "three-orbitcontrols": "^2.110.1",
     "three.js": "^0.77.1",
     "three.meshline": "^1.2.0"
   }
