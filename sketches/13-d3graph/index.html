@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>d3 click event</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <style>.bar {
+      fill: #008b8b;
+    }
+
+    .axis text {
+      font: 10px sans-serif;
+      color: #333;
+    }
+
+    .chart-title {
+      text-align: center;
+    }
+
+    .tooltip {
+      position: absolute;
+      text-align: center;
+      width: auto;
+      height: auto;
+      padding: 5px;
+      font: 12px;
+      background: white;
+      -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
+      -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
+      visibility: hidden;
+    }
+
+    .bar:hover {
+      fill: #2f4f4f;
+    }
+
+    #changeBtn {
+      position: absolute;
+      font-size: 10px;
+      top: 0;
+      right: 10px;
+      margin: 10px 40px;
+      padding: 6px 8px;
+      background-color: #d0e0f7;
+      color: #1f1f1f;
+      border-radius: 5px;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    #changeBtn:hover {
+      opacity: 0.6;
+    }</style>
+</head>
+
+<body>
+  <h2 class="chart-title">
+    日本の人口の推移
+  </h2>
+
+  <svg id="chart"></svg>
+  <div id="changeBtn">合計 | 比率 表示変更</div>
+  <script>//CSVからデータを読み取る 公式ドキュメント参照
+//http://learnjsdata.com/read_data.html
+d3.csv("population.csv", function (d) {
+  if (d.age == "総数") {
+    return {
+      year: +d.year,
+      age: d.age,
+      population: +d.population,
+      man_population: +d.man,
+      woman_population: +d.woman
+    };
+  }
+}).then(function (data) {
+  //ファイルから値を読み取ったのでここでデータを色々する
+  console.log(data); // ツールチップの設定
+
+  var tooltip = d3.select("body").append("div").attr("class", "tooltip"); // ① グラフ全体の設定
+  // マージンの設定
+
+  var margin = {
+    top: 50,
+    right: 150,
+    bottom: 50,
+    left: 50
+  }; // マージンを除いた描画幅を設定
+
+  var width = window.innerWidth - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom; // グラフの全体設定
+
+  var chart = d3.select("#chart").attr("width", width + margin.left + margin.right) // SVG領域は、余白を含む幅
+  .attr("height", height + margin.top + margin.bottom) // SVG領域は、余白を含む高さ
+  .append("g") // 余白を適用するためのグループを作成（適用された属性は子要素に継承される）
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")"); // ② X軸の設定
+  // X軸のデータ範囲などバンドスケールを作成
+
+  var x = d3.scaleBand().domain(data.map(function (d) {
+    return d.year;
+  })) // 年
+  .range([0, width]) // 描画幅
+  .padding(0.1); // グラフの間隔
+  // X軸を追加
+
+  var xAxis = d3.axisBottom(x);
+  chart.append("g").attr("class", "x axis").attr("transform", "translate(" + [margin.left, // メモリが入らないので右に平行移動させる
+  height].join(",") + ")").call(xAxis); // scaleBandを設定
+  // ③ Y軸の設定
+  // Y軸のデータ範囲などリニアスケールを作成
+
+  var y = d3.scaleLinear().domain([0, d3.max(data, function (d) {
+    return d.population;
+  })]) // 入力値の範囲
+  .range([height, 0]); // 最大、最小 出力位置の範囲
+  // Y軸を追加
+
+  var yAxis = d3.axisLeft(y);
+  chart.append("g").attr("class", "yaxis").attr("transform", "translate(" + [margin.left, // メモリが入らないので右に平行移動させる
+  0].join(",") + ")").call(d3.axisLeft(y).ticks(24)); // ④ 各データを描画
+
+  chart.selectAll(".bar").data(data) // 描画データ
+  .enter().append("rect").attr("class", "bar").attr("x", function (d) {
+    return x(d.year);
+  }).attr("width", x.bandwidth()).attr("fill", "#69b3a2").attr("y", function (d) {
+    return y(0);
+  }).attr("height", function (d) {
+    return height - y(0);
+  }).attr("transform", "translate(" + [margin.left, // メモリが入らないので右に平行移動させる
+  0].join(",") + ")").on("mouseover", function (d) {
+    tooltip.style("visibility", "visible").html("name : " + d.year + "<br>value : " + d.population);
+  }).on("mousemove", function (d) {
+    tooltip.style("top", d3.event.pageY - 20 + "px").style("left", d3.event.pageX + 10 + "px");
+  }).on("mouseout", function (d) {
+    tooltip.style("visibility", "hidden");
+  }); // .on("mouseover", function () { return tooltip.style("visibility", "visible"); })
+  // .on("mousemove", function () {
+  //   //値を更新させたかった
+  //   return tooltip.data.text(function (d) { return 100; }).transition().style("color", function () { return "red" })
+  // })
+  // .on("mousemove", function () {
+  //   return tooltip.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px");
+  // })
+  // .on("mouseout", function () { return tooltip.style("visibility", "hidden"); });
+  //ぐらふアニメーション
+
+  chart.selectAll("rect").transition().duration(800).attr("y", function (d) {
+    return y(d.population);
+  }).attr("height", function (d) {
+    return height - y(d.population);
+  }).delay(function (d, i) {
+    console.log(i);
+    return i * 100;
+  }); // ⑤ イベントを設定
+
+  d3.selectAll("rect").on("click", function (data, idx, elem) {
+    var msg = "data:" + data.value + " idx:" + idx + " elem:" + elem + " d3.event.pageX: " + d3.event.pageX + " d3.mouse: " + d3.mouse(this);
+    alert(msg);
+  });
+});</script>
+</body>
+
+</html>

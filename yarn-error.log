@@ -4970,6 +4970,13 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
     integrity sha1-jcrkcOHIirwtYA//Sndihtp15jc=
   
+  repeating@^2.0.0:
+    version "2.0.1"
+    resolved "https://registry.yarnpkg.com/repeating/-/repeating-2.0.1.tgz#5214c53a926d3552707527fbab415dbc08d06dda"
+    integrity sha1-UhTFOpJtNVJwdSf7q0FdvAjQbdo=
+    dependencies:
+      is-finite "^1.0.0"
+  
   request-promise-core@1.1.2:
     version "1.1.2"
     resolved "https://registry.yarnpkg.com/request-promise-core/-/request-promise-core-1.1.2.tgz#339f6aababcafdb31c799ff158700336301d3346"
@@ -5207,6 +5214,11 @@ Lockfile:
     dependencies:
       is-arrayish "^0.3.1"
   
+  slash@^1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
+    integrity sha1-xB8vbDn8FtHNF61LXYlhFK5HDVU=
+  
   snapdragon-node@^2.0.1:
     version "2.1.1"
     resolved "https://registry.yarnpkg.com/snapdragon-node/-/snapdragon-node-2.1.1.tgz#6c175f86ff14bdb0724563e8f3c1b021a286853b"
@@ -5248,6 +5260,13 @@ Lockfile:
       source-map-url "^0.4.0"
       urix "^0.1.0"
   
+  source-map-support@^0.4.15:
+    version "0.4.18"
+    resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.18.tgz#0286a6de8be42641338594e97ccea75f0a2c585f"
+    integrity sha512-try0/JqxPLF9nOjvSta7tVondkP5dwgyLDjVoyMDlmjugT2lRZ1OfsrYTkCd2hkDnJTKRbO/Rl3orm8vlsUzbA==
+    dependencies:
+      source-map "^0.5.6"
+  
   source-map-support@~0.5.10, source-map-support@~0.5.12:
     version "0.5.13"
     resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.13.tgz#31b24a9c2e73c2de85066c0feb7d44767ed52932"
@@ -5266,7 +5285,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
     integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
   
-  source-map@^0.5.0, source-map@^0.5.3, source-map@^0.5.6:
+  source-map@^0.5.0, source-map@^0.5.3, source-map@^0.5.6, source-map@^0.5.7:
     version "0.5.7"
     resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
     integrity sha1-igOdLRAh0i0eoUyA2OpGi6LvP8w=
@@ -5701,6 +5720,11 @@ Lockfile:
     integrity sha1-qLE/1r/SSJUZZ0zN5VujaTtwbQk=
     dependencies:
       punycode "^2.1.0"
+  
+  trim-right@^1.0.1:
+    version "1.0.1"
+    resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
+    integrity sha1-yy4SAwZ+DI3h9hQJS5/kVwTqYAM=
   
   tty-browserify@0.0.0:
     version "0.0.0"
