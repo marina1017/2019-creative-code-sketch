@@ -23,7 +23,8 @@
     "09_1": "parcel src/09-MMD/index.html --no-hmr --port 1234 --out-dir sketches/09-MMD --public-url ./ --no-source-maps",
     "d12-d3graph": "parcel src/12-d3graph/index.html",
     "12-d3graph": "parcel src/12-d3graph/index.html --no-hmr --port 1234 --out-dir sketches/12-d3graph --public-url ./ --no-source-maps",
-    "d13-d3graph": "parcel src/13-d3graph/index.html"
+    "d13-d3graph": "parcel src/13-d3graph/index.html",
+    "13-d3graph": "parcel src/13-d3graph/index.html --no-hmr --port 1234 --out-dir sketches/13-d3graph --public-url ./ --no-source-maps"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

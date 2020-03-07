@@ -9,7 +9,7 @@
   <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
   <style type="text/css">
     .bar {
-      fill: steelblue;
+      fill: #008b8b;
     }
 
     .axis text {
@@ -36,7 +36,25 @@
     }
 
     .bar:hover {
-      fill: Brown;
+      fill: #2f4f4f;
+    }
+
+    #changeBtn {
+      position: absolute;
+      font-size: 10px;
+      top: 0;
+      right: 10px;
+      margin: 10px 40px;
+      padding: 6px 8px;
+      background-color: #d0e0f7;
+      color: #1f1f1f;
+      border-radius: 5px;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    #changeBtn:hover {
+      opacity: 0.6;
     }
   </style>
 </head>
@@ -47,7 +65,7 @@
   </h2>
 
   <svg id="chart"></svg>
-
+  <div id="changeBtn">合計 | 比率 表示変更</div>
   <script>
     //CSVからデータを読み取る 公式ドキュメント参照
     //http://learnjsdata.com/read_data.html
