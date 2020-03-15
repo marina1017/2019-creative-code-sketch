@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>d3 click event</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <style type="text/css">
+    /* .bar {
+      fill: #008b8b;
+    } */
+
+    .axis text {
+      font: 10px sans-serif;
+      color: #333;
+    }
+
+    .chart-title {
+      text-align: center;
+    }
+
+    .tooltip {
+      position: absolute;
+      text-align: center;
+      width: auto;
+      height: auto;
+      padding: 5px;
+      font: 12px;
+      background: white;
+      -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
+      -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
+      visibility: hidden;
+    }
+
+    .bar:hover {
+      fill: #2f4f4f;
+    }
+
+    /* #changeBtn {
+      position: absolute;
+      font-size: 10px;
+      top: 0;
+      right: 10px;
+      margin: 10px 40px;
+      padding: 6px 8px;
+      background-color: #d0e0f7;
+      color: #1f1f1f;
+      border-radius: 5px;
+      display: inline-block;
+      cursor: pointer;
+    } */
+
+    #changeBtn:hover {
+      opacity: 0.6;
+    }
+  </style>
+</head>
+
+<body>
+  <h2 class="chart-title">
+    日本の人口の推移
+  </h2>
+  <script>
+    //CSVからデータを読み取る 公式ドキュメント参照
+    //http://learnjsdata.com/read_data.html
+    d3.csv("population.csv", function (d) {
+      if (d.age == "総数") {
+        return {
+          year: +d.year,
+          age: d.age,
+          population: +d.population,
+          man_population: +d.man,
+          woman_population: +d.woman
+        };
+      }
+    }).then(function (data) {
+      //ファイルから値を読み取ったのでここでデータを色々する
+      console.log(data);
+
+      //スタック関数の設定
+      //データを積み上げた状態の配列を作る。
+      var series = d3.stack()
+        .keys(["man_population", "woman_population"])(data);   //キーを登録
+
+      //グラフの色を決める
+      var colors = d3.scaleOrdinal()
+        .range(["#6495ed", "#db7093"]);
+
+      // ツールチップの設定
+      var tooltip = d3.select("body").append("div").attr("class", "tooltip");
+
+      // ① グラフ全体の設定
+      // マージンの設定
+      var margin = { top: 50, right: 150, bottom: 50, left: 50 };
+
+      // マージンを除いた描画幅を設定
+      var width = window.innerWidth - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+      // ② X軸の設定 
+      var x = d3.scaleBand()
+        .domain(d3.range(data.length))
+        .range([0, width])
+        .paddingInner(0.05);
+        
+      // ③ Y軸の設定 
+      //yスケールでは、バーの高さの最大値を計算する。
+      var y = d3.scaleLinear()
+        .domain([0,
+          d3.max(data, function (d) {
+            return d.man_population + d.woman_population;
+          })
+        ])
+        .range([height, 0]);
+
+      //SVG要素を作成
+      var svg = d3.select("body")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+      // 行ごとのデータのためにグループを作成
+      var groups = svg.selectAll("g")
+        .data(series)
+        .enter()
+        .append("g")
+        .style("fill", function (d, i) {
+          return colors(i);
+        });
+
+      var rects = groups.selectAll("rect")
+        .data(function (d) { return d; })
+        .enter()
+        .append("rect")
+        .attr("x", function (d, i) {
+          return x(i);
+        })
+        .attr("y", function (d) {
+          console.log("/////")
+          console.log(d[0])
+          return y(d[1]);  //バーの下辺のy座標
+        })
+        .attr("height", function (d) {
+          console.log("/////")
+          console.log(d[1])
+          console.log(d[0])
+          return y(d[0]) - y(d[1]);  // 高さを計算
+        })
+        .attr("width", x.bandwidth())
+        .on("mouseover", function (d) {
+          tooltip
+            .style("visibility", "visible")
+            .html("name : " + d[0] + "<br>value : " + d[1]);
+        })
+        .on("mousemove", function (d) {
+          tooltip
+            .style("top", (d3.event.pageY - 20) + "px")
+            .style("left", (d3.event.pageX + 10) + "px");
+        })
+        .on("mouseout", function (d) {
+          tooltip.style("visibility", "hidden");
+        });
+
+    });
+  </script>
+</body>
+
+</html>
