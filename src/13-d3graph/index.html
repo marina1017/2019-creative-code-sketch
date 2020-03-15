@@ -177,17 +177,7 @@
         .on("mouseout", function (d) {
           tooltip.style("visibility", "hidden");
         })
-      // .on("mouseover", function () { return tooltip.style("visibility", "visible"); })
-      // .on("mousemove", function () {
-      //   //値を更新させたかった
-      //   return tooltip.data.text(function (d) { return 100; }).transition().style("color", function () { return "red" })
-      // })
-      // .on("mousemove", function () {
-
-      //   return tooltip.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px");
-      // })
-      // .on("mouseout", function () { return tooltip.style("visibility", "hidden"); });
-
+      
       //ぐらふアニメーション
       chart.selectAll("rect")
         .transition()
