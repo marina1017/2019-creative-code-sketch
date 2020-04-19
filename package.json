@@ -26,7 +26,9 @@
     "d13-d3graph": "parcel src/13-d3graph/index.html",
     "13-d3graph": "parcel src/13-d3graph/index.html --no-hmr --port 1234 --out-dir sketches/13-d3graph --public-url ./ --no-source-maps",
     "d14-d3graph": "parcel src/14-d3graph/index.html",
-    "14-d3graph": "parcel src/14-d3graph/index.html --no-hmr --port 1234 --out-dir sketches/14-d3graph --public-url ./ --no-source-maps"
+    "14-d3graph": "parcel src/14-d3graph/index.html --no-hmr --port 1234 --out-dir sketches/14-d3graph --public-url ./ --no-source-maps",
+    "d15-map": "parcel src/15-map/index.html",
+    "15-map": "parcel src/15-map/index.html --no-hmr --port 1234 --out-dir sketches/15-map --public-url ./ --no-source-maps"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>d3 Map</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <style type="text/css">
+    #map-container {
+      width: 400px;
+      height: 400px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>
+    日本の地図
+  </h2>
+  <div id="map-container"></div>
+  <script>
+    //地図データを読み込む
+    d3.json("japan.geo.json", function (d) {
+      console.log("読み込みしました！")
+    }).then(function (data) {
+      //ファイルから値を読み取ったのでここでデータを色々する
+      console.log(data.features);
+
+      //画面の基本データを決める
+      const width = 400; // 描画サイズ: 幅
+      const height = 400; // 描画サイズ: 高さ
+      const centerPos = [137.0, 38.2]; // 地図のセンター位置
+      const scale = 1000; // 地図のスケール
+
+      // 地図の投影設定
+      const projection = d3
+        .geoMercator()
+        .center(centerPos)
+        .translate([width / 2, height / 2])
+        .scale(scale);
+
+      // 地図をpathに投影(変換)
+      const path = d3.geoPath().projection(projection);
+
+      //SVG要素を作成
+      var svg = d3.select("#map-container")
+        .append("svg")
+        .attr(`viewBox`, `0 0 ${width} ${height}`)
+        .attr(`width`, `100%`)
+        .attr(`height`, `100%`);
+
+      // 都道府県の領域データをpathで描画
+      svg
+        .selectAll(`path`)
+        .data(data.features)
+        .enter()
+        .append(`path`)
+        .attr(`d`, path)
+        .attr(`stroke`, `#666`)
+        .attr(`stroke-width`, 0.25)
+        .attr(`fill`, `#2566CC`)
+        .attr(`fill-opacity`, function (d) {
+          // item.properties.name_ja に都道府県名が入っている
+
+          // 透明度をランダムに指定する (0.0 - 1.0)
+          return Math.random();
+        })
+        /**
+        * 都道府県領域の MouseOver イベントハンドラ
+        */
+        .on(`mouseover`, function (d) {
+          // ラベル用のグループ
+          const group = svg.append(`g`).attr(`id`, `label-group`);
+
+          // 地図データから都道府県名を取得する
+          const label = d.properties.name_ja;
+
+          // 矩形を追加: テキストの枠
+          const rectElement = group
+            .append(`rect`)
+            .attr(`id`, `label-rect`)
+            .attr(`stroke`, `#666`)
+            .attr(`stroke-width`, 0.5)
+            .attr(`fill`, `#fff`);
+
+          // テキストを追加
+          const textElement = group
+            .append(`text`)
+            .attr(`id`, `label-text`)
+            .text(label);
+
+          // テキストのサイズから矩形のサイズを調整
+          const padding = { x: 5, y: 0 };
+          const textSize = textElement.node().getBBox();
+          rectElement
+            .attr(`x`, textSize.x - padding.x)
+            .attr(`y`, textSize.y - padding.y)
+            .attr(`width`, textSize.width + padding.x * 2)
+            .attr(`height`, textSize.height + padding.y * 2);
+
+          // マウス位置の都道府県領域を赤色に変更
+          d3.select(this).attr(`fill`, `#CC4C39`);
+          d3.select(this).attr(`stroke-width`, `1`);
+        })
+
+        /**
+        * 都道府県領域の MouseMove イベントハンドラ
+        */
+        .on("mousemove", function (d) {
+          // テキストのサイズ情報を取得
+          const textSize = svg
+            .select("#label-text")
+            .node()
+            .getBBox();
+
+          // マウス位置からラベルの位置を指定
+          const labelPos = {
+            x: d3.event.offsetX - textSize.width,
+            y: d3.event.offsetY - textSize.height
+          };
+          console.log("///d3.event.offsetY////")
+          console.log(d3.event)
+          console.log(d3.event.offsetX)
+          console.log(d3.event.offsetY)
+          console.log("///マウスログ////")
+          console.log(labelPos)
+
+          // ラベルの位置を移動
+          svg
+            .select("#label-group")
+            .attr(`transform`, `translate(${labelPos.x}, ${labelPos.y})`);
+        })
+
+        /**
+         * 都道府県領域の MouseOut イベントハンドラ
+         */
+        .on(`mouseout`, function (d) {
+          // ラベルグループを削除
+          svg.select("#label-group").remove();
+
+          // マウス位置の都道府県領域を青色に戻す
+          d3.select(this).attr(`fill`, `#2566CC`);
+          d3.select(this).attr(`stroke-width`, `0.25`);
+        });
+
+    });
+  </script>
+</body>
+
+</html>
