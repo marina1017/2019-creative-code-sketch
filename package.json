@@ -30,7 +30,9 @@
     "d15-map": "parcel src/15-map/index.html",
     "15-map": "parcel src/15-map/index.html --no-hmr --port 1234 --out-dir sketches/15-map --public-url ./ --no-source-maps",
     "d17-map": "parcel src/17-map/index.html",
-    "17-map": "parcel src/17-map/index.html --no-hmr --port 1234 --out-dir sketches/17-map --public-url ./ --no-source-maps"
+    "17-map": "parcel src/17-map/index.html --no-hmr --port 1234 --out-dir sketches/17-map --public-url ./ --no-source-maps",
+    "d18-map": "parcel src/18-map/index.html",
+    "18-map": "parcel src/18-map/index.html --no-hmr --port 1234 --out-dir sketches/18-map --public-url ./ --no-source-maps"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
