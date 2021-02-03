@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>宇宙開発ぽいの</title>
+  <style>
+    .intro, pre {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  
+    h1, h3, p {
+      font-family: 'Helvetica Neue', Helvetica, Arial;
+      text-align: center;
+    }
+  
+    h1 {
+      font-weight: 300;
+      font-size: 3em;
+    }
+    h3 {
+      font-weight: 100;
+      letter-spacing: 1px;
+    }
+  
+    body {
+      margin: 0;
+      background-color: black;
+      color:white;
+    }
+  </style>
+</head>
+<body>
+  <div class="intro" style="margin-top: 30px">
+    <!-- Intro -->
+    <h1>宇宙エンジン開発と分解</h1>
+    <p>今後の宇宙開発はどのように進んでいくのでしょうか？</p>
+    
+  </div>
+  <div style="margin-top: 30vh">
+    <h3>Video 1 (Only plays 6 seconds of video with 100px delay</h3>
+    <!-- Video 1 --><video id="scrolleo-1" width="100%" height="100%" autobuffer="autobuffer" preload="preload">
+    <!-- <source src="https://www.html5rocks.com/tutorials/video/basics/Chrome_ImF.mp4"> -->
+      <source src="./コンポ 1.mp4">
+  </video> </div>
+  <div style="margin-top: 100px; margin-bottom: 500px;">
+    <h3>Video 2 (Plays full length video)</h3>
+    <!-- Video 2 --><video id="scrolleo-2" width="100%" height="100%" autobuffer="autobuffer" preload="preload">
+    <source src="./後半.mp4">
+  </video> </div>
+   </div>
+  <script>
+    /* Scrolleo - make your video scroll with inertia
+     * MIT License - by Mark Teater
+     */
+    (function(window, document, undefined) {
+      "use strict";
+     
+      var _Scrolleo = function(opts) {
+        // Defaults
+        // 1が最速、0が最も遅い、0.08がデフォルト
+        this.acceleration = 0.08; //1 is fastest, 0 is slowest, 0.08 is default
+        // 動画の長さを設定します。"1 "は1秒です。
+        this.secondsPerScreen = null; //Set this to the length of the video. "1" is 1 second.
+        //動画がいつ開始されるかをピクセル単位で加減します。"10 "は、動画が10px早く始まることを意味します。
+        this.additionalOffset = 0; //Add or subtract pixels to when the video will start. "10" means that the video will start 10px earlier.
+        this.wrapperEl = null;
+     
+        // Override defaults
+        if (opts) {
+          for (var opt in opts) {
+            this[opt] = opts[opt];
+          }
+        }
+      };
+     
+      var targetScrollPos;
+     
+      _Scrolleo.prototype = {
+        init: function() {
+          var self = this;
+          // 対応するidのセレクターを取得
+          this.wrapper = document.querySelectorAll(this.wrapperEl);
+          
+          // ページの先頭の位置を取得する(window.pageYOffset:スクロールされているピクセル数を返す)
+          // get the location of the top of the page
+          targetScrollPos = window.pageYOffset;
+          Array.prototype.forEach.call(this.wrapper, function(wr) {
+            // オプションで何も設定されていない場合は、pixelsPerSecond を動画の完全な持続時間に設定します。
+            // Set the pixelsPerSecond to the full duration of the video if nothing was set in the options
+            if (self.secondsPerScreen === null) {
+              self.wrapper[0].addEventListener("loadedmetadata", function() {
+                self.secondsPerScreen = self.wrapper[0].duration;
+                //新しいpixelPerSecondで動画の値を再計算します。
+                //recalculate values on video with new pixelsPerSecond
+                self.distanceToTop = getElemDistanceToTop(elem);
+                self.offsetFromTop = getOffsetFromTop(self.distanceToTop);
+                self.pixelsPerSecond = getPixelsPerSecond();
+              });
+            }
+     
+            self.pixelsPerSecond = null;
+            self.scrollPos = null;
+            self.currentTime = null;
+            self.offsetFromTop = null;
+            self.distanceToTop = null;
+     
+            // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+            // requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
+            (function() {
+              //requestAnimationFrameを下位互換実装するためらしい
+              var lastTime = 0;
+              var vendors = ["ms", "moz", "webkit", "o"];
+              for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+                window.requestAnimationFrame = window[vendors[x] + "RequestAnimationFrame"];
+                window.cancelAnimationFrame = window[vendors[x] + "CancelAnimationFrame"] || window[vendors[x] + "CancelRequestAnimationFrame"];
+              }
+              if (!window.requestAnimationFrame)
+                window.requestAnimationFrame = function(callback, element) {
+                  var currTime = new Date().getTime();
+                  var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                  var id = window.setTimeout(function() {
+                    callback(currTime + timeToCall);
+                  }, timeToCall);
+                  lastTime = currTime + timeToCall;
+                  return id;
+                };
+              if (!window.cancelAnimationFrame)
+                window.cancelAnimationFrame = function(id) {
+                  clearTimeout(id);
+                };
+            })();
+     
+            // requestAnim shim layer by Paul Irish
+            window.requestAnimFrame = (function() {
+              return (
+                window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                window.oRequestAnimationFrame ||
+                window.msRequestAnimationFrame ||
+                function(/* function */ callback, /* DOMElement */ element) {
+                  window.setTimeout(callback, 1000 / 60);
+                }
+              );
+            })();
+    
+            // Scrolleoで使用する機能の定義 id(scrolleo-1)が上からどれくらい離れているかを取得する
+            // Define functions to be used by Scrolleo
+            var getElemDistanceToTop = function(elem) {
+                //http://gomakethings.com/get-distances-to-the-top-of-the-document-with-native-javascript/
+                var location = 0;
+                if (elem.offsetParent) {
+                  do {
+                    location += elem.offsetTop;
+                    elem = elem.offsetParent;
+                  } while (elem);
+                }
+                return location >= 0 ? location : 0;
+              },
+              //装画の要素のオフセット
+              getOffsetFromTop = function(distanceToTop) {
+                //self.additionalOffset: 動画をどれくらい遅らせるか
+                var offset = distanceToTop - window.innerHeight + self.additionalOffset;
+                return offset >= 0 ? offset : 0;
+              },
+              getPixelsPerSecond = function() {
+                //window.innerHeight ウィンドウの内部の高さ
+                //self.wrapper[0].clientHeight 動画の要素の高さ
+                //self.secondsPerScreen 動画の長さ
+                var pixelsPerSecond = (window.innerHeight + self.wrapper[0].clientHeight) / self.secondsPerScreen;
+                return pixelsPerSecond >= 0 ? pixelsPerSecond : 0;
+              },
+              scrollHandler = function() {
+                targetScrollPos = window.pageYOffset;
+              },
+              resizeHandler = function() {
+                //リサイズ時の値の再計算
+                //recalculate values on resize
+                self.distanceToTop = getElemDistanceToTop(elem);
+                self.offsetFromTop = getOffsetFromTop(self.distanceToTop);
+                self.pixelsPerSecond = getPixelsPerSecond();
+              },
+              //★これが毎回実行されている
+              scrollControl = function() {
+                //スクロール時
+                //targetScrollPos:どれくらいスクロールしたか
+    
+                self.scrollPos += (targetScrollPos - self.offsetFromTop - self.scrollPos) * self.acceleration;
+                //scrollPosをピクセルから秒に変換してself.currentTimeを設定します。
+                self.currentTime = self.scrollPos / self.pixelsPerSecond; //convert scrollPos from pixels to seconds to set self.currentTime
+                self.wrapper[0].currentTime = self.currentTime;
+                self.wrapper[0].pause();
+              };
+     
+            //ページ上部からの要素の距離を取得する
+            // Get an element's distance from the top of the page
+            var elem = self.wrapper[0];
+            console.log("elem",elem)
+     
+            // 各scrolleoビデオの初期サイズ、距離、オフセットを計算します。
+            // Calulate the initial size, distance, and offset of each scrolleo video
+    
+            self.distanceToTop = getElemDistanceToTop(elem);
+            console.log("動画の要素が上からどれくらい離れているか self.distanceToTop",self.distanceToTop)
+            self.offsetFromTop = getOffsetFromTop(self.distanceToTop);
+            console.log("動画の要素のオフセットself.offsetFromTop",self.offsetFromTop)
+            self.pixelsPerSecond = getPixelsPerSecond();
+            console.log("self.pixelsPerSecond",self.pixelsPerSecond)
+     
+            self.scrollPos = targetScrollPos - self.offsetFromTop;
+     
+            wr.pause();
+            // ブラウザの準備ができたら、requestAnimationFrame を使用して動画を確実に更新します。
+            // Use requestAnimationFrame to ensure the video is updating when the browser is ready
+            window.requestAnimFrame(function render() {
+              window.requestAnimFrame(render);
+              // 要素の scrollPos が targetScrollPos に達していない場合のみ scrollControl をキックオフする。
+              // Only kickoff scrollControl if the scrollPos of element hasn't reached targetScrollPos
+              if (Math.round(self.scrollPos + self.offsetFromTop) != targetScrollPos) {
+                scrollControl();
+              }
+            });
+     
+            window.addEventListener("scroll", scrollHandler, false);
+            window.addEventListener("resize", resizeHandler, false);
+          });
+        }
+      };
+      window.Scrolleo = _Scrolleo;
+    })(window, document);
+     
+    // Setup video 1
+    var scrolleo1 = new Scrolleo({
+      acceleration: 1, // 1 = instant, 0 = never
+      // 動画の長さを設定します。"1 "は1秒です。
+      secondsPerScreen: 10, // Defaults to video duration
+      //ポジティブな場合は後から、ネガティブな場合は前から開始します。
+      additionalOffset: 0, // Positive starts the video later, negative starts earlier. default starts when top of video hits bottom of the screen
+      wrapperEl: "#scrolleo-1" // id of the video you want to control
+    });
+    scrolleo1.init();
+     
+    // Setup Video 2
+    var scrolleo2 = new Scrolleo({
+      acceleration: 1, // 1 = instant, 0 = never
+      // 動画の長さを設定します。"1 "は1秒です。
+      secondsPerScreen: 5, // Defaults to video duration
+      //ポジティブな場合は後から、ネガティブな場合は前から開始します。
+      additionalOffset: 0, // Positive starts the video later, negative starts earlier. default starts when top of video hits bottom of the screen
+      wrapperEl: "#scrolleo-2"
+    });
+    scrolleo2.init();
+  </script>
+</body>
